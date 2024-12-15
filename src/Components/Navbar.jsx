@@ -10,11 +10,11 @@ function Navbar() {
     setIsSidebarOpen(!isSidebarOpen)
   }
   return (
-    <div>
+    <div className='overflow-x-hidden '>
 
 
       {/* sidebar */}
-      <div className={`absolute w-full h-screen bg-[#CF4616] z-50 2xl:hidden block transform transition-transform duration-300  ${!isSidebarOpen ? "translate-x-full" : "translate-x-0"}`}>
+      <div className={`fixed top-0 left-0  w-100% h-screen bg-[#CF4616] z-50 2xl:hidden block transform transition-transform duration-300  ${!isSidebarOpen ? "translate-x-full" : "translate-x-0"}`}>
         <div className='flex justify-between px-2 mt-10'>
           <div className='logo text-[34px] leading-[1em] tracking-tighter font-bold text-white px-5 py-[9px]'>HiShoes</div>
           <div className='flex'>
@@ -38,7 +38,7 @@ function Navbar() {
       {/* content */}
 
       <div className='h-10 bg-[#1A2508] w-full flex justify-center items-center'>
-        <h1 className='text-[16px] leading-[1.6em] font-normal tracking-wider text-white 2xl:block hidden'>Free Shipping for orders over $50</h1>
+        <h1 className='text-[16px] leading-[1.6em] font-normal tracking-wider text-white'>Free Shipping for orders over $50</h1>
       </div>
       <div className='w-full flex justify-between '>
 
@@ -52,11 +52,12 @@ function Navbar() {
           </div>
         </div>
         <div className='flex'>
-          <div className='px-4 py-2 2xl:block hidden'><div className='flex items-center justify-center w-10 h-10 rounded-full bg-[#1A2508] text-xl text-white font-semibold'>A</div></div>
           <div className='px-4 py-2 text-lg relative 2xl:block hidden'><input type="text" className='w-[200px] h-[40px] border-[#1A2508] border-2 rounded-3xl pl-2 pr-6' /><FontAwesomeIcon className=' absolute right-6 top-[18px]' icon={faSearch} /></div>
           <div className='px-4 py-2 text-4xl text-[#1A2508] relative'><FontAwesomeIcon icon={faHeart} /><p className='text-sm text-white absolute right-[30px] top-4'>0</p></div>
           <div className='px-4 py-[6px] text-4xl text-[#1A2508] relative'><FontAwesomeIcon icon={faBagShopping} /><p className='text-sm text-white absolute right-7 top-5'>0</p></div>
           <div className=' 2xl:hidden px-4 py-2 text-4xl text-[#1A2508]' onClick={openSideNav}><FontAwesomeIcon icon={faBars} /></div>
+          <div className='px-4 py-2 2xl:block hidden'><div className='flex items-center justify-center w-10 h-10 rounded-full bg-[#1A2508] text-xl text-white font-semibold'><FontAwesomeIcon icon={faUser}/></div></div>
+
         </div>
 
       </div>
