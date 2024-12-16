@@ -2,8 +2,8 @@ import React from 'react'
 
 function Footer() {
     return (
-        <div>
-            <div className='w-full 2xl:flex'>
+        <div className='px-2 mb-2'>
+            <div className='w-full 2xl:flex border-[1px] border-black'>
                 <div className='2xl:w-[25%] w-full bg-[#CF4616] h-[500px] text-white flex flex-col justify-between px-8'>
                     <div className='text-3xl pt-10'>Newsletter</div>
                     <div className='text-xl w-[160px] text-left'>Sign up to receive updates on new products and special offers</div>
@@ -33,7 +33,7 @@ function Footer() {
 
                             </div>
                         </div>
-                        <div className='px-12 col-span-2'>
+                        <div className='px-12 col-span-2 2xl:col-auto'>
                             <div className='text-2xl my-10'>Policy</div>
                             <div className='list-none text-lg'>
                                 <li>Terms & Conditions</li>
@@ -44,7 +44,7 @@ function Footer() {
                                 <li>FAQ</li>
                             </div>
                         </div>
-                        <div className='px-12 col-span-2'>
+                        <div className='px-12 col-span-2 2xl:col-auto'>
                             <div className='text-2xl my-10'>Store</div>
                             <div className='list-none text-lg'>
                                 <li>Bridgeon Manjeri</li>
