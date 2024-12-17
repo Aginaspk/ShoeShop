@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faHeart, faBagShopping, faBars, faX, faUser } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -29,7 +30,7 @@ function Navbar() {
         <div className='text-white text-2xl list-none px-8'>
           <li className='px-5 py-4'>Men</li>
           <li className='px-5 py-4'>Woman</li>
-          <li className='px-5 py-4'>Sales</li>
+          <Link to={'/products'}><li className='px-5 py-4'>Sales</li></Link>
           <li className='px-5 py-4'>Stories</li>
         </div>
 
@@ -47,7 +48,7 @@ function Navbar() {
             <div className='text-lg flex list-none'>
               <li className='px-5 py-4 2xl:block hidden'>Men</li>
               <li className='px-5 py-4 2xl:block hidden'>Woman</li>
-              <li className='px-5 py-4 2xl:block hidden'>Sales</li>
+              <Link to={'/products'}><li className='px-5 py-4 2xl:block hidden'>Sales</li></Link>
               <li className='px-5 py-4 2xl:block hidden'>Stories</li>
             </div>
           </div>
