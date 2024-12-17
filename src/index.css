@@ -18,3 +18,14 @@ body,html{
 body{
   @apply text-[16px] leading-[1.6em] font-normal tracking-wider;
 }
+
+.marquee-inner {
+  display: inline-flex;
+  width: calc(200% + 0.5px); 
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
