@@ -19,9 +19,9 @@ function Products() {
         "https://iili.io/2hGjkIp.jpg"
     ]
     return (
-        <div className='p-2 z-0 px-2 2xl:mt-[140px] mt-[98px]'>
-            <div className='w-full 2xl:flex'>
-                <div className='2xl:w-[20%] hidden 2xl:block pl-5'>
+        <div className='p-2 z-0 px-2 2xl:mt-[140px] mt-[98px] 2xl:mb-[500px]'>
+            <div className='w-full 2xl:flex '>
+                <div className='2xl:w-[20%] hidden 2xl:block pl-5 '>
                     <h1 className='text-xl py-3 border-b-[1px] border-black/50 w-[75%]'>Browse By</h1>
                     <div className=' list-none pt-3 pb-5'>
                         <li className='py-1'>All Products</li>
@@ -69,24 +69,28 @@ function Products() {
                     </div>
 
                 </div>
-                <div className='2xl:w-[80%] flex flex-col items-end'>
-                    <div className=' relative pr-5 '>
-                        <h1 className='text-xl py-3' onClick={()=>setSelectFilter(!selectFilter)}>Sort by:{filter}</h1>
-                        <div className={`absolute z-20 list-none text-lg shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px] overflow-hidden transition-all duration-300 ease-in-out ${!selectFilter ? "max-h-0" : "max-h-[192px] py-1 px-2"}`}>
-                            <li className={`pb-1 ${filter === "Recommended" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("Recommended");setSelectFilter(!selectFilter)}}>Recommended</li>
-                            <li className={`pb-1 ${filter === "Newest" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("Newest");setSelectFilter(!selectFilter)}}>Newest</li>
-                            <li className={`pb-1 ${filter === "Price (Low to High)" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("Price (Low to High)");setSelectFilter(!selectFilter)}}>Price (Low to High)</li>
-                            <li className={`pb-1 ${filter === "Price (High to Low)" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("Price (High to Low)");setSelectFilter(!selectFilter)}}>Price (High to Low)</li>
-                            <li className={`pb-1 ${filter === "A-Z" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("A-Z");setSelectFilter(!selectFilter)}}>A-Z</li>
-                            <li className={`pb-1 ${filter === "Z-A" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("Z-A");setSelectFilter(!selectFilter)}}>Z-A</li>
+                <div className='2xl:w-[80%] flex flex-col items-end '>
+                    <div className=' relative  w-[250px] text-center 2xl:block hidden '>
+                        <h1 className='text-xl py-3 pr-2' onClick={()=>setSelectFilter(!selectFilter)}>Sort by:{filter}</h1>
+                        <div className={`absolute w-full z-20 list-none text-left text-lg shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px] overflow-hidden transition-all duration-300 ease-in-out px-3 ${!selectFilter ? "max-h-0" : "max-h-[192px]"}`}>
+                            <li className={`pb-1 px-2 ${filter === "Recommended" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("Recommended");setSelectFilter(!selectFilter)}}>Recommended</li>
+                            <li className={`pb-1 px-2 ${filter === "Newest" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("Newest");setSelectFilter(!selectFilter)}}>Newest</li>
+                            <li className={`pb-1 px-2 ${filter === "Price (Low to High)" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("Price (Low to High)");setSelectFilter(!selectFilter)}}>Price (Low to High)</li>
+                            <li className={`pb-1 px-2 ${filter === "Price (High to Low)" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("Price (High to Low)");setSelectFilter(!selectFilter)}}>Price (High to Low)</li>
+                            <li className={`pb-1 px-2 ${filter === "A-Z" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("A-Z");setSelectFilter(!selectFilter)}}>A-Z</li>
+                            <li className={`pb-1 px-2 ${filter === "Z-A" ? "bg-[#e1e2df]" : "bg-white" }`} onClick={()=>{setFilter("Z-A");setSelectFilter(!selectFilter)}}>Z-A</li>
                         </div>
                     </div>
-                    <div className='w-full grid 2xl:grid-cols-3 grid-cols-1 2xl:border-0 border-y-2 '>
+                    <div>
+                    <h1 className='text-xl py-3 pr-2 2xl:hidden block underline'>Filter & Sort</h1>
+
+                    </div>
+                    <div className='w-full grid 2xl:grid-cols-3 grid-cols-1 2xl:border-0 border-y-2 mr-[1px] '>
                         {img.map((item,index)=>{
                             return (
-                                <div className='h-[500px] overflow-hidden flex flex-col border-black border-x-2 border-b-2' key={index}>
+                                <div className='h-[500px] overflow-hidden flex flex-col shadow-[0_0_0_1px_black]' key={index}>
                                     <img src={item} alt="" className='h-[400px] w-full object-cover' />
-                                    <div className='w-full bg-white'>
+                                    <div className='w-full bg-white h-full px-6 text-lg py-5'>
                                         <h1>Air Jordan</h1>
                                         <h1>$75.00</h1>
                                     </div>

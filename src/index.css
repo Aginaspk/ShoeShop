@@ -5,7 +5,10 @@
 
 
 * {
-  font-family: "Roboto Condensed", serif;
+  font-family: "Azeret Mono", serif;
+  font-optical-sizing: auto;
+  box-sizing: border-box;
+
 }
 body,html{
   overflow-x: hidden;
@@ -28,4 +31,14 @@ body{
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+.brand{
+  font-family: "Leckerli One", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+.name{
+  font-family: "Knewave", serif;
+  font-weight: 400;
+  font-style: normal;
 }
