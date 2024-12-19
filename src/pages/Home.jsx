@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Marquee from '../Components/Marquee'
+import CarouselSlide from './Home/CarouselSlide'
 
 function Home() {
     const [topPickId, setTopPickId] = useState(null)
@@ -29,15 +30,17 @@ function Home() {
                 Shop Now
             </div>
 
+            <CarouselSlide/>
 
-            <div className='w-full h-[600px] relative'>
+
+            {/* <div className='w-full h-[600px] relative'>
                 <img src="https://iili.io/2whjtIt.jpg" alt="" className='w-full h-full object-cover object-left 2xl:object-center border-black border-2  ' />
                 <div className='absolute   font-semibold  text-white  text-center 2xl:top-[15%] top-[30%] -right-1 2xl:right-[10%]  '>
                     <h1 className=' text-6xl 2xl:text-9xl tracking-widest text-white logo mb-10 pl-2 '>HiShoes</h1>
                     <h1 className='text-base 2xl:text-2xl'>UNIQUE DESIGNS FOR DISTINCTIVE SPACES</h1>
                     <div className='w-[200px] h-[50px] flex items-center justify-center rounded-full bg-[#1A2508] text-white ml-[6rem] 2xl:ml-[12rem] mt-12 2xl:mt-16'>Shop Now</div>
                 </div>
-            </div>
+            </div> */}
             <div className='2xl:flex  mb-10 mt-16  h-auto '>
                 <div className='2xl:w-[30%] '>
                     <div className='h-[200px] flex flex-col justify-between px-1'>
@@ -51,7 +54,7 @@ function Home() {
                 </div>
             </div>
 
-            <div className='mb-10 mt-20'>
+            <div className='mb-10 mt-20 2xl:mx-[1px]'>
             <div className='flex 2xl:flex-row flex-col justify-between  2xl:mb-10 mb-3'>
                     <h1 className='text-lg 2xl:mb-0 mb-5 px-1'>New Picks</h1>
                 </div>
@@ -60,7 +63,8 @@ function Home() {
                         if(index >= 3)
                             return;
                         return (
-                            <div className='h-[500px] overflow-hidden flex flex-col shadow-[0_0_0_1px_black]' key={index}>
+                            <div className='h-[500px] overflow-hidden relative flex flex-col shadow-[0_0_0_1px_black]' key={index}>
+                                <h1 className=' absolute left-3 top-3 px-2 rounded-full bg-[#1A2508] text-white text-sm'>NEW</h1>
                                 <img src={item} alt="" className='h-[400px] w-full object-cover' />
                                 <div className='w-full bg-white h-full px-6 text-lg py-5'>
                                     <h1>Air Jordan</h1>
@@ -97,7 +101,7 @@ function Home() {
                     </div>
                 </div>
 
-                <div className='mb-10 mt-20'>
+                <div className='mb-10 mt-20 2xl:mx-[1px]'>
             <div className='flex 2xl:flex-row flex-col justify-between  2xl:mb-10 mb-3'>
                     <h1 className='text-lg 2xl:mb-0 mb-5 px-1'>Most Selling</h1>
                 </div>

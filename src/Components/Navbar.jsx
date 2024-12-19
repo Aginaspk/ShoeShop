@@ -30,7 +30,7 @@ function Navbar() {
         <div className='text-white text-xl list-none px-5'>
           <li className='px-5 py-4'>Men</li>
           <li className='px-5 py-4'>Woman</li>
-          <Link to={'/products'}><li className='px-5 py-4'>Sales</li></Link>
+          <Link to={'/products'}><li className='px-5 py-4' onClick={()=>setIsSidebarOpen(!isSidebarOpen)}>Sales</li></Link>
           <li className='px-5 py-4'>Stories</li>
         </div>
 
@@ -54,8 +54,8 @@ function Navbar() {
           </div>
           <div className='flex'>
             <div className='px-4 py-2 text-lg relative 2xl:block hidden'><input type="text" className='w-[200px] h-[40px] border-[#1A2508] border-2 rounded-3xl pl-2 pr-6' /><FontAwesomeIcon className=' absolute right-6 top-[18px]' icon={faSearch} /></div>
-            <div className='px-4 py-2 text-4xl text-[#1A2508] relative'><FontAwesomeIcon icon={faHeart} /><p className='text-sm text-white absolute right-[30px] top-4'>0</p></div>
-            <div className='px-4 py-[6px] text-4xl text-[#1A2508] relative'><FontAwesomeIcon icon={faBagShopping} /><p className='text-sm text-white absolute right-7 top-5'>0</p></div>
+            <div className='px-4 py-2 text-4xl text-[#1A2508] relative'><FontAwesomeIcon icon={faHeart} /><p className='text-sm text-white absolute right-[28px] top-[18px]'>0</p></div>
+            <div className='px-4 py-[6px] text-4xl text-[#1A2508] relative'><FontAwesomeIcon icon={faBagShopping} /><p className='text-sm text-white absolute right-[26px] top-[22px]'>0</p></div>
             <div className=' 2xl:hidden px-4 py-2 text-4xl text-[#1A2508]' onClick={openSideNav}><FontAwesomeIcon icon={faBars} /></div>
             <div className='px-4 py-2 2xl:block hidden'><div className='flex items-center justify-center w-10 h-10 rounded-full bg-[#1A2508] text-xl text-white font-semibold'><FontAwesomeIcon icon={faUser} /></div></div>
 
