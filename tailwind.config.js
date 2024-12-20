@@ -7,16 +7,8 @@ export default {
     flowbite.content(),
   ],
   theme: {
-    extend: {
-      flowbite: {
-        carousel: {
-          scrollContainer: {
-            base: "flex h-full snap-mandatory overflow-x-scroll scroll-smooth rounded-none", // Custom styles
-            snap: "snap-x lg:snap-none rounded-none", // Example modification
-          },
-        },
-      },
-    },
+    
+
   },
   plugins: [
     Flowbite.plugin(),
