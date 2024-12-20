@@ -1,18 +1,24 @@
-import flowbite from 'flowbite/plugin';
-
+const flowbite = require("flowbite-react/tailwind");
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/flowbite-react/**/*.js",
+    flowbite.content(),
   ],
   theme: {
     extend: {
+      flowbite: {
+        carousel: {
+          scrollContainer: {
+            base: "flex h-full snap-mandatory overflow-x-scroll scroll-smooth rounded-none", // Custom styles
+            snap: "snap-x lg:snap-none", // Example modification
+          },
+        },
+      },
     },
   },
   plugins: [
-    flowbite, 
+    flowbite.plugin(),
   ],
-};
-
+}
