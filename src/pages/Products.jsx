@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faPlus } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
 
 function Products() {
     const [type, setType] = useState(true);
@@ -88,13 +89,13 @@ function Products() {
                     <div className='w-full grid 2xl:grid-cols-3 grid-cols-1 2xl:border-0 border-y-2 mr-[1px] '>
                         {img.map((item,index)=>{
                             return (
-                                <div className='h-[500px] overflow-hidden flex flex-col shadow-[0_0_0_1px_black]' key={index}>
+                                <Link to={`/products/${index+1}`}><div className='h-[500px] overflow-hidden flex flex-col shadow-[0_0_0_1px_black]' key={index}>
                                     <img src={item} alt="" className='h-[400px] w-full object-cover' />
                                     <div className='w-full bg-white h-full px-6 text-lg py-5'>
                                         <h1>Air Jordan</h1>
                                         <h1>$75.00</h1>
                                     </div>
-                                </div>
+                                </div></Link>
                             )
                         })}
                     </div>
