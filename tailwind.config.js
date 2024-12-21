@@ -8,7 +8,11 @@ export default {
     flowbite.content(),
   ],
   theme: {
-
+    extend: {
+      screens: {
+        'sm-xl': { min: '640px', max: '1536px' },
+      },
+    },
   },
   plugins: [
     flowbite.plugin(),

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Heart from "react-animated-heart";
+import { useParams } from 'react-router-dom';
 function ViewProduct() {
     const [isSizeBarOpen, setIsSizeBarOpen] = useState(false);
     const [size, setSize] = useState('Select');
@@ -9,18 +10,32 @@ function ViewProduct() {
     const [isInformatiosBarOpen, setIsInformatiosBarOpen] = useState(true);
     const [whichInfo, setWhichInfo] = useState('PRODUCT INFO');
     const [isClick, setClick] = useState(false);
+    const {id} = useParams();
+    const img = [
+        "https://iili.io/2hNY5fn.jpg",
+        "https://iili.io/2hN7cZP.jpg",
+        "https://iili.io/2hNYpqX.jpg",
+        "https://iili.io/2hNaoru.jpg",
+        "https://iili.io/2hGj5ru.jpg",
+        "https://iili.io/2hGjlmQ.jpg",
+        "https://iili.io/2hGjj2a.jpg",
+        "https://iili.io/2hGjkIp.jpg"
+    ]
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
     return (
         <div className='2xl:mt-[165px] mt-[100px] 2xl:px-[75px] mb-[65px] 2xl:flex px-2'>
             <div className='flex 2xl:w-[866px] justify-between'>
                 <div className='w-[113px] h-[113px] hidden 2xl:block'>
-                    <img src="https://iili.io/2hNY5fn.jpg" alt="" className='h-full w-full object-cover opacity-30' />
+                    <img src={img[id]} alt="" className='h-full w-full object-cover opacity-30' />
                 </div>
                 <div className='2xl:w-[728px] 2xl:h-[680px] w-full  h-[400px] overflow-hidden'>
-                    <img src="https://iili.io/2hNY5fn.jpg" alt="" className='2xl:h-full w-full object-cover' />
+                    <img src={img[id]} alt="" className='2xl:h-full w-full object-cover' />
 
                 </div>
             </div>
-            <div className='2xl:w-[437px] w-full 2xl:ml-[55px] '>
+            <div className='2xl:w-[437px] w-full 2xl:ml-[55px] mt-10 2xl:mt-0 '>
                 <div>
                     <h1 className='text-lg my-3'>Nike Air Jordan</h1>
                     <h1 className='text-xl my-3'>$65.00</h1>

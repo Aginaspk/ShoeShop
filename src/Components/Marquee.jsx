@@ -1,8 +1,19 @@
 import React from 'react';
 
-const Marquee = ({ img }) => {
+const Marquee = () => {
 
-    const repeat = [...img,...img]
+  const img = [
+    "https://iili.io/2hNY5fn.jpg",
+    "https://iili.io/2hN7cZP.jpg",
+    "https://iili.io/2hNYpqX.jpg",
+    "https://iili.io/2hNaoru.jpg",
+    "https://iili.io/2hGj5ru.jpg",
+    "https://iili.io/2hGjlmQ.jpg",
+    "https://iili.io/2hGjj2a.jpg",
+    "https://iili.io/2hGjkIp.jpg"
+  ]
+
+  const repeat = [...img, ...img]
   return (
     <div className="overflow-hidden whitespace-nowrap relative h-full">
       <div className="marquee-inner inline-block ">
