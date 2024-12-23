@@ -22,7 +22,7 @@ const Marquee = () => {
             key={index}
             src={image}
             alt={`Image ${index + 1}`}
-            className="inline-block w-[400px] 2xl:h-[500px] h-[450px] object-cover"
+            className="inline-block w-[400px] xl:h-[500px] h-[450px] object-cover"
           />
         ))}
       </div>

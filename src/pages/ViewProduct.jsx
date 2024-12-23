@@ -25,17 +25,17 @@ function ViewProduct() {
         window.scrollTo(0, 0);
       }, []);
     return (
-        <div className='2xl:mt-[165px] mt-[100px] 2xl:px-[75px] mb-[65px] 2xl:flex px-2'>
-            <div className='flex 2xl:w-[866px] justify-between'>
-                <div className='w-[113px] h-[113px] hidden 2xl:block'>
+        <div className='xl:mt-[165px] mt-[100px] xl:px-[75px] mb-[65px] xl:flex px-2'>
+            <div className='flex xl:w-[866px] justify-between'>
+                <div className='w-[113px] h-[113px] hidden xl:block'>
                     <img src={img[id]} alt="" className='h-full w-full object-cover opacity-30' />
                 </div>
-                <div className='2xl:w-[728px] 2xl:h-[680px] w-full  h-[400px] overflow-hidden'>
-                    <img src={img[id]} alt="" className='2xl:h-full w-full object-cover' />
+                <div className='xl:w-[728px] xl:h-[680px] w-full  h-[400px] overflow-hidden'>
+                    <img src={img[id]} alt="" className='xl:h-full w-full object-cover' />
 
                 </div>
             </div>
-            <div className='2xl:w-[437px] w-full 2xl:ml-[55px] mt-10 2xl:mt-0 '>
+            <div className='xl:w-[437px] w-full xl:ml-[55px] mt-10 xl:mt-0 '>
                 <div>
                     <h1 className='text-lg my-3'>Nike Air Jordan</h1>
                     <h1 className='text-xl my-3'>$65.00</h1>
@@ -66,13 +66,13 @@ function ViewProduct() {
                 </div>
 
 
-                <div className='w-full justify-between 2xl:flex'>
-                    <button className='mb-3 2xl:mb-0 w-full 2xl:w-[185px] h-[46px] bg-[#CF4616] flex justify-center items-center text-white'>Add to Cart</button>
-                    <button className='mb-3 2xl:mb-0 w-full 2xl:w-[185px] h-[46px] bg-[#1A2508] text-white flex justify-center items-center'>Buy Now</button>
-                    <div className=' 2xl:block hidden w-full h-[46px] 2xl:w-[49px] border-[1px] border-black relative '>
+                <div className='w-full justify-between xl:flex'>
+                    <button className='mb-3 xl:mb-0 w-full xl:w-[185px] h-[46px] bg-[#CF4616] flex justify-center items-center text-white'>Add to Cart</button>
+                    <button className='mb-3 xl:mb-0 w-full xl:w-[185px] h-[46px] bg-[#1A2508] text-white flex justify-center items-center'>Buy Now</button>
+                    <div className=' xl:block hidden w-full h-[46px] xl:w-[49px] border-[1px] border-black relative '>
                         <Heart isClick={isClick} onClick={() => setClick(!isClick)} styles={{position:"absolute", top:"-27px",right:"-25px"}} />
                     </div>
-                    <div className='2xl:hidden  mb-3 2xl:mb-0 w-full h-[46px] 2xl:w-[49px] border-[1px] border-black relative '>
+                    <div className='xl:hidden  mb-3 xl:mb-0 w-full h-[46px] xl:w-[49px] border-[1px] border-black relative '>
                         <Heart isClick={isClick} onClick={() => setClick(!isClick)} styles={{position:"absolute", top:"-27px",right:"37%"}} />
                     </div>
                 </div>
@@ -88,7 +88,7 @@ function ViewProduct() {
                             <p className='text-[13px]' >PRODUCT INFO</p>
                             <FontAwesomeIcon className='text-black' icon={faAngleDown} />
                         </div>
-                        <div className={`bg-white w-full  overflow-hidden  ${isInformatiosBarOpen && whichInfo === 'PRODUCT INFO' ? "max-h-[96px]" : "max-h-0"} transition-all duration-300 ease-in-out 2xl:px-0 px-2  `}>
+                        <div className={`bg-white w-full  overflow-hidden  ${isInformatiosBarOpen && whichInfo === 'PRODUCT INFO' ? "max-h-[96px]" : "max-h-0"} transition-all duration-300 ease-in-out xl:px-0 px-2  `}>
                             <p className='text-[13px] leading-4'>I'm a product detail. I'm a great place to add more information about your product such as sizing, material, care and cleaning instructions. This is also a great space to write what makes this product special and how your customers can benefit from this item.</p>
                         </div>
                     </div>
@@ -99,7 +99,7 @@ function ViewProduct() {
                             <p className='text-[13px]' >RETURN & REFUND POLICY</p>
                             <FontAwesomeIcon className='text-black' icon={faAngleDown} />
                         </div>
-                        <div className={`bg-white w-full  overflow-hidden  ${isInformatiosBarOpen && whichInfo === 'RETURN & REFUND POLICY' ? "max-h-[96px]" : "max-h-0"} transition-all duration-300 ease-in-out 2xl:px-0 px-2  `}>
+                        <div className={`bg-white w-full  overflow-hidden  ${isInformatiosBarOpen && whichInfo === 'RETURN & REFUND POLICY' ? "max-h-[96px]" : "max-h-0"} transition-all duration-300 ease-in-out xl:px-0 px-2  `}>
                             <p className='text-[13px] leading-4'>I’m a Return and Refund policy. I’m a great place to let your customers know what to do in case they are dissatisfied with their purchase. Having a straightforward refund or exchange policy is a great way to build trust and reassure your customers that they can buy with confidence.</p>
                         </div>
                     </div>
@@ -110,7 +110,7 @@ function ViewProduct() {
                             <p className='text-[13px]' >SHIPPING INFO</p>
                             <FontAwesomeIcon className='text-black' icon={faAngleDown} />
                         </div>
-                        <div className={`bg-white w-full  overflow-hidden  ${isInformatiosBarOpen && whichInfo === 'SHIPPING INFO' ? "max-h-[96px]" : "max-h-0"} transition-all duration-300 ease-in-out 2xl:px-0 px-2  `}>
+                        <div className={`bg-white w-full  overflow-hidden  ${isInformatiosBarOpen && whichInfo === 'SHIPPING INFO' ? "max-h-[96px]" : "max-h-0"} transition-all duration-300 ease-in-out xl:px-0 px-2  `}>
                             <p className='text-[13px] leading-4'>I'm a shipping policy. I'm a great place to add more information about your shipping methods, packaging and cost. Providing straightforward information about your shipping policy is a great way to build trust and reassure your customers that they can buy from you with confidence</p>
                         </div>
                     </div>

@@ -7,7 +7,7 @@ function SideBar() {
     const [type, setType] = useState(true);
     const [size, setSize] = useState(false);
     return (
-        <div className='2xl:w-[20%] hidden 2xl:block pl-5 '>
+        <div className='xl:w-[20%] hidden xl:block pl-5 '>
             <h1 className='text-xl py-3 border-b-[1px] border-black/50 w-[75%]'>Browse By</h1>
             <div className=' list-none pt-3 pb-5'>
                 <li className='py-1'>All Products</li>
