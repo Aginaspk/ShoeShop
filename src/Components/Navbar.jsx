@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faHeart, faBagShopping, faBars, faX, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
+import { User2, UserCircle2, UserRound } from 'lucide-react'
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -30,14 +31,32 @@ function Navbar() {
         <div className='text-white text-xl list-none px-5'>
           <li className='px-5 py-4'>Men</li>
           <li className='px-5 py-4'>Woman</li>
-          <Link to={'/products'}><li className='px-5 py-4' onClick={() => setIsSidebarOpen(!isSidebarOpen)}>Sales</li></Link>
+          <li className='px-5 py-4' onClick={() => setIsSidebarOpen(!isSidebarOpen)}>Sales</li>
           <li className='px-5 py-4'>Stories</li>
         </div>
 
       </div>
+      <div className='px-2'>
+      <div className='w-full h-[77px] bg-[#1A2508] flex'>
+        <div className='logos text-white flex'>
+          <h1 className=' text-[42px] line-through '>as</h1>
+          <h1 className='text-[14px]'>awesome sneakers</h1>
+        </div>
+        <div className='text-white flex'>
+          <h1>Men</h1>
+          <h1>Female</h1>
+          <h1>Sale</h1>
+          <h1>Contact us</h1>
+        </div>
+        <div className='text-yellow-400'>
+          <h1><UserCircle2/><p>Log in</p></h1>
+          <h1></h1>
+        </div>
+      </div>
+      </div>
 
       {/* content */}
-      <div className='px-2'>
+      <div className='px-2 hidden'>
         <div className='h-10 bg-[#1A2508] w-full flex justify-center items-center border-black border-[1px]'>
           <h1 className='text-[13px] leading-[1.6em] font-normal tracking-wider text-white'>Free Shipping for orders over $50</h1>
         </div>
@@ -48,7 +67,7 @@ function Navbar() {
             <div className='text-[16px] flex list-none'>
               <li className='px-3 py-4 xl:block hidden'>Men</li>
               <li className='px-3 py-4 xl:block hidden'>Woman</li>
-              <Link to={'/products'}><li className='px-3 py-4 xl:block hidden'>Sales</li></Link>
+              <li className='px-3 py-4 xl:block hidden'>Sales</li>
               <li className='px-3 py-4 xl:block hidden'>Stories</li>
             </div>
           </div>

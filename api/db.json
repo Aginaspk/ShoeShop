@@ -1,0 +1,216 @@
+{
+  "shoes": [
+    {
+      "id": 1,
+      "name": "ASICS Gel-Kahana 8",
+      "brand": "Asics",
+      "price": 150,
+      "sale": 0,
+      "sizes": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "gender": "Men",
+      "images": [
+        "https://iili.io/2efWcSS.jpg",
+        "https://iili.io/2efW0H7.jpg",
+        "https://iili.io/2efWYKl.jpg",
+        "https://iili.io/2efWENe.jpg"
+      ],
+      "sold": 500
+    },
+    {
+      "id": 2,
+      "name": "Urysn Skateboarding",
+      "brand": "Urysn",
+      "price": 180,
+      "sale": 160,
+      "sizes": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "gender": "Men",
+      "images": [
+        "https://iili.io/2efvzRR.jpg",
+        "https://iili.io/2efk78x.jpg",
+        "https://iili.io/2efku6u.jpg",
+        "https://iili.io/2efkYyQ.jpg"
+      ],
+      "sold": 450
+    },
+    {
+      "id": 3,
+      "name": "Grand Court 2.0",
+      "brand": "Adidas",
+      "price": 120,
+      "sale": 0,
+      "sizes": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "gender": "Men",
+      "images": [
+        "https://iili.io/2efsp99.jpg",
+        "https://iili.io/2efsDaS.jpg",
+        "https://iili.io/2efLHZb.jpg",
+        "https://iili.io/2efLdnj.jpg"
+      ],
+      "sold": 320
+    },
+    {
+      "id": 4,
+      "name": "2002R Vintage Indigo",
+      "brand": "New Balance",
+      "price": 175,
+      "sale": 150,
+      "sizes": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "gender": "Men",
+      "images": [
+        "https://iili.io/2eqdExV.jpg",
+        "https://iili.io/2eqdcRj.jpg",
+        "https://iili.io/2eqdaHb.jpg"
+      ],
+      "sold": 280
+    },
+    {
+      "id": 5,
+      "name": "Adidas Bad Bunny Forum",
+      "brand": "Adidas",
+      "price": 65,
+      "sale":0,
+      "sizes": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "gender": "Men",
+      "images": [
+        "https://iili.io/2eqfsov.jpg",
+        "https://iili.io/2eqfPDJ.jpg",
+        "https://iili.io/2eqf4Ag.jpg",
+        "https://iili.io/2eqfLVR.jpg"
+      ],
+      "sold": 670
+    },
+    {
+      "id": 6,
+      "name": "Forum Low CL Shoes",
+      "brand": "Adidas",
+      "price": 70,
+      "sale":0,
+      "sizes": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "gender": "Women",
+      "images": [
+        "https://iili.io/2eqAVu2.jpg",
+        "https://iili.io/2eqAEv4.jpg",
+        "https://iili.io/2eqA1af.jpg",
+        "https://iili.io/2eqAc4s.jpg"
+      ],
+      "sold": 390
+    },
+    {
+      "id": 7,
+      "name": "1906R Vintage Indigo",
+      "brand": "New Balance",
+      "price": 140,
+      "sale":0,
+      "sizes": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "gender": "Women",
+      "images": [
+        "https://iili.io/2eqleWl.jpg",
+        "https://iili.io/2eqlUg9.jpg",
+        "https://iili.io/2eql45u.jpg",
+        "https://iili.io/2eqlszx.jpg"
+      ],
+      "sold": 210
+    },
+    {
+      "id": 8,
+      "name": "Nike Dunk Low SP",
+      "brand": "Nike",
+      "price": 160,
+      "sale":0,
+      "sizes": [
+        8,
+        9,
+        10
+      ],
+      "gender": "Women",
+      "images": [
+        "https://iili.io/2ezHeja.jpg",
+        "https://iili.io/2ezHwyF.jpg",
+        "https://iili.io/2ezHkZJ.jpg",
+        "https://iili.io/2ezH8Cv.jpg"
+      ],
+      "sold": 330
+    },
+    {
+      "id": 9,
+      "name": "Nike SB Dunk Low Born x",
+      "brand": "Nike",
+      "price": 200,
+      "sale": 180,
+      "sizes": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "gender": "Women",
+      "images": [
+        "https://iili.io/2ez3SDX.jpg",
+        "https://iili.io/2ez3gxn.jpg",
+        "https://iili.io/2ez3gxn.jpg",
+        "https://iili.io/2ez3Pff.jpg"
+      ],
+      "sold": 490
+    },
+    {
+      "id": 10,
+      "name": "Air Jordan 4 Retro",
+      "brand": "Nike",
+      "price": 160,
+      "sale":150,
+      "sizes": [
+        7,
+        8,
+        9
+      ],
+      "gender": "Women",
+      "images": [
+        "https://iili.io/2ezf98Q.jpg",
+        "https://iili.io/2ezfJ9V.jpg",
+        "https://iili.io/2ezKpFj.jpg",
+        "https://iili.io/2ezf2wP.jpg"
+      ],
+      "sold": 270
+    }
+  ]
+}

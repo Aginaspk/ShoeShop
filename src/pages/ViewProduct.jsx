@@ -1,44 +1,64 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Heart from "react-animated-heart";
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 function ViewProduct() {
+
+    
+
+
+    const { id } = useParams();
+    console.log(id);
+    
+
+    const { products,status } = useSelector(state => state.products)
+    console.log(products);
+    
+
+
+    const filteredProducts = products.filter(product => product.id === id);
+
+    console.log(filteredProducts)
+
     const [isSizeBarOpen, setIsSizeBarOpen] = useState(false);
     const [size, setSize] = useState('Select');
     const [quantity, setQuantity] = useState(1);
     const [isInformatiosBarOpen, setIsInformatiosBarOpen] = useState(true);
     const [whichInfo, setWhichInfo] = useState('PRODUCT INFO');
     const [isClick, setClick] = useState(false);
-    const {id} = useParams();
-    const img = [
-        "https://iili.io/2hNY5fn.jpg",
-        "https://iili.io/2hN7cZP.jpg",
-        "https://iili.io/2hNYpqX.jpg",
-        "https://iili.io/2hNaoru.jpg",
-        "https://iili.io/2hGj5ru.jpg",
-        "https://iili.io/2hGjlmQ.jpg",
-        "https://iili.io/2hGjj2a.jpg",
-        "https://iili.io/2hGjkIp.jpg"
-    ]
+
     useEffect(() => {
         window.scrollTo(0, 0);
-      }, []);
+    }, []);
+    if (status === 'loading') { return <div>Loading...</div> }
+    if (status === 'failed') { return <div>{error}</div> }
     return (
         <div className='xl:mt-[165px] mt-[100px] xl:px-[75px] mb-[65px] xl:flex px-2'>
             <div className='flex xl:w-[866px] justify-between'>
-                <div className='w-[113px] h-[113px] hidden xl:block'>
-                    <img src={img[id]} alt="" className='h-full w-full object-cover opacity-30' />
+                <div className=' hidden xl:grid grid-cols-1 h-[500px]'>
+                    {filteredProducts[0]?.images?.map((item, index) => {
+                        return (
+                            <div key={index} className='w-[113px] h-[113px]'>
+                                <img src={item} alt="" className='h-full w-full object-cover opacity-30' />
+                            </div>
+                        )
+                    })}
+
                 </div>
                 <div className='xl:w-[728px] xl:h-[680px] w-full  h-[400px] overflow-hidden'>
-                    <img src={img[id]} alt="" className='xl:h-full w-full object-cover' />
+                    <img src={filteredProducts[0]?.images[0]} alt="" className='xl:h-full w-full object-cover' />
 
                 </div>
             </div>
             <div className='xl:w-[437px] w-full xl:ml-[55px] mt-10 xl:mt-0 '>
                 <div>
-                    <h1 className='text-lg my-3'>Nike Air Jordan</h1>
-                    <h1 className='text-xl my-3'>$65.00</h1>
+                    <h1 className='text-lg my-3'>{filteredProducts[0]?.name}</h1>
+                    <div className='flex gap-2'>
+                        <h1 className={`text-xl my-3 ${filteredProducts[0]?.sale > 0 && "line-through"}`}>${filteredProducts[0]?.price}.00</h1>
+                        <h1 className={`text-xl my-3 ${filteredProducts[0]?.sale <= 0 && "hidden"} text-[#CF4616]`}>${filteredProducts[0]?.sale}.00</h1>
+                    </div>
                     <h1 className='text-sm my-3'>I'm a product description. I'm a great place to add more details about your product such as sizing, material, care instructions and cleaning instructions</h1>
                 </div>
                 <div className='w-full my-3'>
@@ -70,10 +90,10 @@ function ViewProduct() {
                     <button className='mb-3 xl:mb-0 w-full xl:w-[185px] h-[46px] bg-[#CF4616] flex justify-center items-center text-white'>Add to Cart</button>
                     <button className='mb-3 xl:mb-0 w-full xl:w-[185px] h-[46px] bg-[#1A2508] text-white flex justify-center items-center'>Buy Now</button>
                     <div className=' xl:block hidden w-full h-[46px] xl:w-[49px] border-[1px] border-black relative '>
-                        <Heart isClick={isClick} onClick={() => setClick(!isClick)} styles={{position:"absolute", top:"-27px",right:"-25px"}} />
+                        <Heart isClick={isClick} onClick={() => setClick(!isClick)} styles={{ position: "absolute", top: "-27px", right: "-25px" }} />
                     </div>
                     <div className='xl:hidden  mb-3 xl:mb-0 w-full h-[46px] xl:w-[49px] border-[1px] border-black relative '>
-                        <Heart isClick={isClick} onClick={() => setClick(!isClick)} styles={{position:"absolute", top:"-27px",right:"37%"}} />
+                        <Heart isClick={isClick} onClick={() => setClick(!isClick)} styles={{ position: "absolute", top: "-27px", right: "37%" }} />
                     </div>
                 </div>
 
