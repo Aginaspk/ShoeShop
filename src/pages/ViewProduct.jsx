@@ -1,21 +1,22 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Heart from "react-animated-heart";
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDisplayImage } from '../features/products/viewProductSlice';
+
+
 function ViewProduct() {
 
-    
-
-
     const { id } = useParams();
-    console.log(id);
-    
+    const dispatch = useDispatch();
 
-    const { products,status } = useSelector(state => state.products)
+
+    const { products, status } = useSelector(state => state.products)
+    const { displayImage } = useSelector(state => state.viewProduct)
     console.log(products);
-    
+
 
 
     const filteredProducts = products.filter(product => product.id === id);
@@ -31,7 +32,12 @@ function ViewProduct() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        dispatch(setDisplayImage(0))
     }, []);
+
+    const changeImage = (value) => {
+        dispatch(setDisplayImage(value))
+    }
     if (status === 'loading') { return <div>Loading...</div> }
     if (status === 'failed') { return <div>{error}</div> }
     return (
@@ -40,15 +46,15 @@ function ViewProduct() {
                 <div className=' hidden xl:grid grid-cols-1 h-[500px]'>
                     {filteredProducts[0]?.images?.map((item, index) => {
                         return (
-                            <div key={index} className='w-[113px] h-[113px]'>
-                                <img src={item} alt="" className='h-full w-full object-cover opacity-30' />
+                            <div key={index} className='w-[113px] h-[113px]' onClick={() => changeImage(index)}>
+                                <img src={item} alt="" className={`h-full w-full object-cover ${displayImage === index && "opacity-30"}`} />
                             </div>
                         )
                     })}
 
                 </div>
                 <div className='xl:w-[728px] xl:h-[680px] w-full  h-[400px] overflow-hidden'>
-                    <img src={filteredProducts[0]?.images[0]} alt="" className='xl:h-full w-full object-cover' />
+                    <img src={filteredProducts[0]?.images[displayImage]} alt="" className='xl:h-full w-full object-cover' />
 
                 </div>
             </div>
@@ -69,10 +75,11 @@ function ViewProduct() {
                             <FontAwesomeIcon className='text-black' icon={faAngleDown} />
                         </div>
                         <div className={`bg-white w-full border-[1px] border-black/20 border-t-0 absolute overflow-hidden ${isSizeBarOpen ? "max-h-[150px]" : "max-h-0"} transition-all duration-300 ease-in-out`}>
-                            <div onClick={() => { setIsSizeBarOpen(!isSizeBarOpen); setSize(7) }} className=' h-[30px]  flex items-center pl-3'>7</div>
-                            <div onClick={() => { setIsSizeBarOpen(!isSizeBarOpen); setSize(8) }} className=' h-[30px]  flex items-center pl-3'>8</div>
-                            <div onClick={() => { setIsSizeBarOpen(!isSizeBarOpen); setSize(9) }} className=' h-[30px]  flex items-center pl-3'>9</div>
-                            <div onClick={() => { setIsSizeBarOpen(!isSizeBarOpen); setSize(10) }} className=' h-[30px]  flex items-center pl-3'>10</div>
+                            {filteredProducts[0]?.sizes.map((item, index) => {
+                                return (
+                                    <div onClick={() => { setIsSizeBarOpen(!isSizeBarOpen); setSize(item) }} className=' h-[30px]  flex items-center pl-3'>{item}</div>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>

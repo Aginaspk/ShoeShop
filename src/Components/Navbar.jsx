@@ -1,16 +1,48 @@
-import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faHeart, faBagShopping, faBars, faX, faUser } from '@fortawesome/free-solid-svg-icons'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Heart, LucideShoppingBag, MenuIcon, Search, UserCircle2, X } from 'lucide-react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setFilterShoe } from '../features/products/ProductSlice'
+import { setSearchInput } from '../features/others/navbarSlice'
+
+
+
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const dispatch = useDispatch();
+  const ref = useRef();
 
+  const { searchInput } = useSelector(state => state.navbar)
+  const { products, status } = useSelector(state => state.products)
 
   const openSideNav = () => {
     setIsSidebarOpen(!isSidebarOpen)
   }
+
+  const navToProduct = (val) => {
+    dispatch(setFilterShoe(val))
+  }
+
+  const getSearchInput = (e) => {
+    dispatch(setSearchInput(e.target.value))
+    console.log(searchInput);
+
+  }
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchInput.trim().toLowerCase())
+
+  );
+  console.log(filteredProducts);
+
+
+
+  const scrollToFooter = () => {
+    const footer = document.getElementById('footer');
+    footer?.scrollIntoView({ behavior: 'smooth' });
+  };
+  if (status === 'loading') { return <div>Loading...</div> }
+  if (status === 'failed') { return <div>{error}</div> }
   return (
     <div className='overflow-x-hidden w-full fixed z-20 top-0 bg-white'>
 
@@ -23,7 +55,7 @@ function Navbar() {
             <h1 className='pt-[5px]'>awesome sneakers</h1>
           </div>
           <div onClick={openSideNav}>
-          <X size={40} className='pt-[6px]'/>
+            <X size={40} className='pt-[6px]' />
           </div>
 
         </div>
@@ -51,23 +83,52 @@ function Navbar() {
             <h1 className='text-[13px] leading-[1.6em] font-normal tracking-wider text-white'>Free Shipping for orders over $50</h1>
           </div>
           <div className='w-full flex justify-between xl:block '>
-            <h1 className='logos text-[50px] line-through xl:text-center xl:px-0 pl-2'>as</h1>
+          <Link to={'/'}><h1 className='logos text-[50px] line-through xl:text-center xl:px-0 pl-2'>as</h1></Link>
             <h1 className='xl:hidden lg:hidden block' onClick={openSideNav}><MenuIcon size={40} /></h1>
           </div>
 
 
 
-          <div className='flex justify-between py-5 items-center px-2 '>
+          <div className='flex justify-between py-3 items-center px-2 '>
             <div className='xl:flex relative'>
-              <h1 className=' absolute left-0 top-[10px]'><Search size={20} /></h1>
-              <input className='pl-7 xl:w-[250px] w-[150px] border-transparent focus:border-b-black focus:border-transparent focus:ring-0 ' placeholder='Search...' type="text" name="" id="" />
+              <h1 className=' absolute left-0 top-[10px] z-30'><Search size={20} /></h1>
+
+              <div className='relative '>
+                <input
+                  onChange={getSearchInput}
+                  className='logos pl-7 xl:w-[250px] w-[150px] border-transparent focus:border-b-black/15  focus:border-transparent focus:ring-0 '
+                  placeholder='SEARCH...'
+                  type="text"
+                  name=""
+                  id=""
+                  ref={ref}
+                  spellCheck='false' />
+                <div className=' fixed w-auto border-[1px] border-black/15'>
+                  {filteredProducts.length <= 0 && <div className='h-[75px] w-[150px] xl:w-[250px] px-5 bg-white flex justify-center items-center'>No Item Found..</div>}
+                  {searchInput.trim() !== '' && filteredProducts.length > 0 && filteredProducts.map((item, index) => {
+                    return (
+                      <Link onClick={() => { dispatch(setSearchInput('')); ref.current.value = '' }} key={index} to={`/products/${item.id}`}>
+                        <div className={`flex h-[75px] bg-white items-center px-3 py-[10px] `}>
+                          <img className='w-[73px] h-[55px] object-contain' src={item.images[0]} alt="" />
+                          <h1 className='text-[10px] text-ellipsis whitespace-nowrap text-left'>{item.name}</h1>
+                        </div>
+                      </Link>
+                    )
+                  })}
+
+                </div>
+              </div>
+
             </div>
+
+
+
             <div className='xl:flex gap-10 hidden '>
-              <h1>Men</h1>
-              <h1>Woman</h1>
-              <h1>Sale</h1>
-              <h1>Contact</h1>
-              <h1>About</h1>
+              <Link to={'/products'}><h1 onClick={() => navToProduct('Men')}>Men</h1></Link>
+              <Link to={'/products'}><h1 onClick={() => navToProduct('Women')}>Women</h1></Link>
+              <Link to={'/products'}><h1 onClick={() => navToProduct('Sale')}>Sale</h1></Link>
+              <h1 onClick={scrollToFooter} className=' cursor-pointer'>Contact</h1>
+              <h1 onClick={scrollToFooter} className=' cursor-pointer'>About</h1>
 
             </div>
             <div className='flex gap-8'>
@@ -80,7 +141,7 @@ function Navbar() {
       </div>
 
       {/* content */}
-      <div className='px-2 hidden'>
+      {/* <div className='px-2 hidden'>
         <div className='h-10 bg-[#1A2508] w-full flex justify-center items-center border-black border-[1px]'>
           <h1 className='text-[13px] leading-[1.6em] font-normal tracking-wider text-white'>Free Shipping for orders over $50</h1>
         </div>
@@ -108,7 +169,7 @@ function Navbar() {
           </div>
 
         </div>
-      </div>
+      </div> */}
 
 
 

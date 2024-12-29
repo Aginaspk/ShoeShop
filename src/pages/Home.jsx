@@ -3,16 +3,16 @@ import Marquee1 from '../Components/Marquee'
 import CarouselSlide from '../Components/CarouselSlide'
 import Marquee from 'react-fast-marquee'
 import { Link } from 'react-router-dom'
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function Home() {
     const [topPickId, setTopPickId] = useState(null)
 
     const { products } = useSelector(state => state.products)
-    
 
 
-    
+
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -36,7 +36,17 @@ function Home() {
 
             {/* slideShowBanner */}
 
-            <CarouselSlide />
+            {/* <CarouselSlide /> */}
+
+            <div className='w-full h-[600px] relative border-2 border-black mb-10 '>
+                <img className='w-full h-full object-cover ' src="https://static.wixstatic.com/media/84770f_e79251bac8554e33b08eb677c53a8e87~mv2.jpg/v1/fill/w_1519,h_800,al_b,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/84770f_e79251bac8554e33b08eb677c53a8e87~mv2.jpg" alt="" />
+                <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                <div className='absolute top-0 right-0 left-0 bottom-0  flex flex-col  justify-center items-center'>
+                    <h1 className='logos text-white text-[320px]  line-through'>as</h1>
+                    <h1 className='logos text-[50px] text-white mt-36'>AWESOME SNEAKERS</h1>
+                    <Link to={'/products'}><div className='w-[205px] h-[45px] bg-white logos flex justify-center items-center text-xl mt-10 hover:bg-black hover:text-white cursor-pointer'>SHOP NOW</div></Link>
+                </div>
+            </div>
 
 
 
@@ -44,6 +54,7 @@ function Home() {
 
                 <div className=' xl:h-[600px] h-[450px]   w-full relative '>
                     <img src="https://iili.io/2hGj5ru.jpg" alt="" className='h-full w-full object-cover  xl:my-0 my-10 border-black border-[2px]' />
+
                     <div className='z-10 2xl:top-40 top-[190px] w-full absolute '>
                         <h1 className='xl:text-9xl text-4xl xl:font-light font-medium text-center  '>UP TO 40% OFF</h1>
                         <h1 className='xl:text-lg font-light text-center'>Plus Free Shipping over $50</h1>
@@ -116,13 +127,13 @@ function Home() {
                             if (index >= 4)
                                 return;
                             return (
-                                <div className='h-[500px] overflow-hidden flex flex-col shadow-[0_0_0_1px_black]' key={index}>
+                                <Link key={index} to={`/products/${item.id}`}><div className='h-[500px] overflow-hidden flex flex-col shadow-[0_0_0_1px_black]' >
                                     <img src={item.images[0]} alt="" className='h-[400px] w-full object-cover' />
                                     <div className='w-full bg-white h-full px-6 text-lg py-5'>
                                         <h1>{item.name}</h1>
                                         <h1>${item.price}.00</h1>
                                     </div>
-                                </div>
+                                </div></Link>
                             )
                         })}
                     </div>
