@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Footer from './Components/Footer'
 import Navbar from './Components/Navbar'
 import { useDispatch } from 'react-redux'
 import { setProducts, setStatus, setError } from './features/products/ProductSlice'
 import axios from 'axios'
+
 
 
 function App() {
@@ -25,12 +26,18 @@ function App() {
 
     fetchProducts();
 
+
+    
+
+
   }, [dispatch]);
+
+
 
   return (
     <>
       <Navbar />
-      <Outlet />
+        <Outlet />
       <Footer />
     </>
   )

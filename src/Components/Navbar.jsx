@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { Heart, LucideShoppingBag, MenuIcon, Search, UserCircle2, X } from 'lucide-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setFilterShoe } from '../features/products/ProductSlice'
-import { setSearchInput } from '../features/others/navbarSlice'
+import { setSearchInput,setIsLoginOpen } from '../features/others/navbarSlice'
+import Login from '../pages/Login'
 
 
 
@@ -15,6 +16,7 @@ function Navbar() {
 
   const { searchInput } = useSelector(state => state.navbar)
   const { products, status } = useSelector(state => state.products)
+  const {isLoginOpen} = useSelector((state)=>state.navbar)
 
   const openSideNav = () => {
     setIsSidebarOpen(!isSidebarOpen)
@@ -45,6 +47,8 @@ function Navbar() {
   if (status === 'failed') { return <div>{error}</div> }
   return (
     <div className='overflow-x-hidden w-full fixed z-20 top-0 bg-white'>
+
+      <Login/>
 
 
       {/* sidebar */}
@@ -77,7 +81,7 @@ function Navbar() {
 
 
 
-      <div className='px-2  '>
+      <div className=' '>
         <div className='border-b-2 border-black'>
           <div className='h-10 bg-[#1A2508] w-full flex justify-center items-center'>
             <h1 className='text-[13px] leading-[1.6em] font-normal tracking-wider text-white'>Free Shipping for orders over $50</h1>
@@ -89,7 +93,7 @@ function Navbar() {
 
 
 
-          <div className='flex justify-between py-3 items-center px-2 '>
+          <div className='flex justify-between py-3 items-center px-2 z-20 '>
             <div className='xl:flex relative'>
               <h1 className=' absolute left-0 top-[10px] z-30'><Search size={20} /></h1>
 
@@ -132,7 +136,7 @@ function Navbar() {
 
             </div>
             <div className='flex gap-8'>
-              <h1 className='xl:flex hidden'><UserCircle2 /><p>Log in</p></h1>
+              <h1 className='xl:flex cursor-pointer hidden' onClick={()=>dispatch(setIsLoginOpen(!isLoginOpen))}><UserCircle2 /><p>Log in</p></h1>
               <h1><Heart /></h1>
               <h1><LucideShoppingBag /></h1>
             </div>

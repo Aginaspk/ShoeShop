@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
     searchInput:'',
+    isLoginOpen:false,
 }
 
 const navbarSlice = createSlice({
@@ -10,9 +11,12 @@ const navbarSlice = createSlice({
     reducers:{
         setSearchInput:(state,action)=>{
             state.searchInput = action.payload;
+        },
+        setIsLoginOpen:(state,action)=>{
+            state.isLoginOpen = action.payload;
         }
     }
 })
 
-export const {setSearchInput} = navbarSlice.actions;
+export const {setSearchInput,setIsLoginOpen} = navbarSlice.actions;
 export default navbarSlice.reducer;
