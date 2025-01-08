@@ -36,9 +36,9 @@ function Home() {
 
 
             {/* side shop button */}
-            <Link to={'/products'}><div className='bg-[#CF4616] w-[126px] h-[40px] flex justify-center items-center text-white text-base fixed -right-10 z-40 top-1/3 -rotate-90 '>
+            {/* <Link to={'/products'}><div className={`bg-[#CF4616] w-[126px] h-[40px] flex justify-center items-center text-white text-base fixed -right-10 z-40 top-1/3 -rotate-90 `}>
                 Shop Now
-            </div></Link>
+            </div></Link> */}
 
             {/* slideShowBanner */}
 
@@ -85,7 +85,7 @@ function Home() {
                             if (index >= 3)
                                 return;
                             return (
-                                <Link key={index} to={`/products/${item.id}`}><div className='h-[500px] overflow-hidden relative flex flex-col shadow-[0_0_0_1px_black]' >
+                                <Link key={index} to={`/products/${item.id}`}><div className='h-[500px] overflow-hidden relative flex flex-col ' >
                                     <h1 className=' absolute left-3 top-3 px-2 rounded-full bg-[#1A2508] text-white text-sm'>NEW</h1>
                                     <img src={item.images[0]} alt="" className='h-[400px] w-full object-cover' />
                                     <div className='w-full bg-white h-full px-6 text-lg py-5'>
@@ -107,7 +107,7 @@ function Home() {
                     <h1 className='text-lg xl:mb-0 mb-5 px-1'>Top Picks</h1>
                     <h1 className='xl:text-lg text-base px-1'>Trusted by Adventurers</h1>
                 </div>
-                <div className='grid xl:grid-cols-2 grid-cols-1  gap-[2px] bg-black border-[1px] border-black'>
+                <div className='grid xl:grid-cols-2 grid-cols-1  gap-[2px] '>
                     <div className='bg-white xl:h-[615px] h-[345px] ' onMouseEnter={() => topPickHover("one")} onMouseLeave={() => topPickHover("")}>
 
 
@@ -136,7 +136,7 @@ function Home() {
                             if (index >= 4)
                                 return;
                             return (
-                                <Link key={index} to={`/products/${item.id}`}><div className='h-[500px] overflow-hidden flex flex-col shadow-[0_0_0_1px_black]' >
+                                <Link key={index} to={`/products/${item.id}`}><div className='h-[500px] overflow-hidden flex flex-col ' >
                                     <img src={item.images[0]} alt="" className='h-[400px] w-full object-cover' />
                                     <div className='w-full bg-white h-full px-6 text-lg py-5'>
                                         <h1>{item.name}</h1>

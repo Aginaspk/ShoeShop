@@ -1,4 +1,5 @@
 import flowbite from "flowbite-react/tailwind";
+import daisyui from "daisyui"
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -16,5 +17,10 @@ export default {
   },
   plugins: [
     flowbite.plugin(),
+    daisyui,
   ],
+  daisyui: {
+    base:false,
+    themes: ["light"],  
+  },
 }

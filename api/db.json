@@ -1,7 +1,24 @@
 {
+  "users": [
+    {
+      "id": "1",
+      "name": "Aginas Pk",
+      "email": "batman@gmail.com",
+      "password": "12345678",
+      "role": "user"
+    },
+    {
+      "id": "2",
+      "name": "rinshad",
+      "email": "rinshad@gmail.com",
+      "password": "12345678",
+      "role": "user"
+    }                                                 
+
+  ],
   "shoes": [
     {
-      "id": 1,
+      "id": "1",
       "name": "ASICS Gel-Kahana 8",
       "brand": "Asics",
       "price": 150,
@@ -23,7 +40,7 @@
       "sold": 500
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Urysn Skateboarding",
       "brand": "Urysn",
       "price": 180,
@@ -45,7 +62,7 @@
       "sold": 450
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Grand Court 2.0",
       "brand": "Adidas",
       "price": 120,
@@ -66,7 +83,7 @@
       "sold": 320
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "2002R Vintage Indigo",
       "brand": "New Balance",
       "price": 175,
@@ -86,11 +103,11 @@
       "sold": 280
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Adidas Bad Bunny Forum",
       "brand": "Adidas",
       "price": 65,
-      "sale":0,
+      "sale": 0,
       "sizes": [
         6,
         7,
@@ -109,11 +126,11 @@
       "sold": 670
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Forum Low CL Shoes",
       "brand": "Adidas",
       "price": 70,
-      "sale":0,
+      "sale": 0,
       "sizes": [
         6,
         7,
@@ -131,11 +148,11 @@
       "sold": 390
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "1906R Vintage Indigo",
       "brand": "New Balance",
       "price": 140,
-      "sale":0,
+      "sale": 0,
       "sizes": [
         7,
         8,
@@ -152,11 +169,11 @@
       "sold": 210
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Nike Dunk Low SP",
       "brand": "Nike",
       "price": 160,
-      "sale":0,
+      "sale": 0,
       "sizes": [
         8,
         9,
@@ -172,7 +189,7 @@
       "sold": 330
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Nike SB Dunk Low Born x",
       "brand": "Nike",
       "price": 200,
@@ -193,11 +210,11 @@
       "sold": 490
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Air Jordan 4 Retro",
       "brand": "Nike",
       "price": 160,
-      "sale":150,
+      "sale": 150,
       "sizes": [
         7,
         8,

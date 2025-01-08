@@ -2,8 +2,8 @@ import React from 'react'
 
 function Footer() {
     return (
-        <div className=' mb-2' id='footer'>
-            <div className='w-full xl:flex border-[1px] border-black'>
+        <div className='' id='footer'>
+            <div className='w-full xl:flex '>
                 <div className='xl:w-[25%] w-full bg-[#CF4616] h-[500px] text-white flex flex-col justify-between px-8'>
                     <div className='text-2xl pt-10'>Newsletter</div>
                     <div className='text-base w-[250px] text-left'>Sign up to receive updates on new products and special offers</div>

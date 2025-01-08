@@ -36,6 +36,7 @@ function Navbar() {
 
   );
   console.log(filteredProducts);
+  
 
 
 
@@ -46,7 +47,7 @@ function Navbar() {
   if (status === 'loading') { return <div>Loading...</div> }
   if (status === 'failed') { return <div>{error}</div> }
   return (
-    <div className='overflow-x-hidden w-full fixed z-20 top-0 bg-white'>
+    <div className={`overflow-x-hidden w-full fixed z-20 top-0 bg-white`}>
 
       <Login/>
 
