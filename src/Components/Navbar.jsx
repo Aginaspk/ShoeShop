@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Heart, LucideShoppingBag, MenuIcon, Search, UserCircle2, X } from 'lucide-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setFilterShoe } from '../features/products/ProductSlice'
@@ -13,6 +13,9 @@ function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const dispatch = useDispatch();
   const ref = useRef();
+  const navigate = useNavigate()
+
+  const user = JSON.parse(localStorage.getItem('user'))
 
   const { searchInput } = useSelector(state => state.navbar)
   const { products, status } = useSelector(state => state.products)
@@ -35,7 +38,14 @@ function Navbar() {
     product.name.toLowerCase().includes(searchInput.trim().toLowerCase())
 
   );
-  console.log(filteredProducts);
+  const navTo = ()=>{
+    if(user){
+      navigate('/profile')
+    }else{
+      dispatch(setIsLoginOpen(!isLoginOpen))
+    }
+    
+  }
   
 
 
@@ -108,7 +118,7 @@ function Navbar() {
                   id=""
                   ref={ref}
                   spellCheck='false' />
-                <div className=' fixed w-auto border-[1px] border-black/15'>
+                <div className={` fixed max-h-[300px] overflow-y-scroll  w-auto ${filteredProducts.length <= 0 ?"border-[1px] border-black/15":"border-0"} `}>
                   {filteredProducts.length <= 0 && <div className='h-[75px] w-[150px] xl:w-[250px] px-5 bg-white flex justify-center items-center'>No Item Found..</div>}
                   {searchInput.trim() !== '' && filteredProducts.length > 0 && filteredProducts.map((item, index) => {
                     return (
@@ -137,7 +147,7 @@ function Navbar() {
 
             </div>
             <div className='flex gap-8'>
-              <h1 className='xl:flex cursor-pointer hidden' onClick={()=>dispatch(setIsLoginOpen(!isLoginOpen))}><UserCircle2 /><p>Log in</p></h1>
+              <h1 className='xl:flex cursor-pointer hidden' onClick={navTo}><UserCircle2 /><p>{user ? "" : "Login"}</p></h1>
               <h1><Heart /></h1>
               <h1><LucideShoppingBag /></h1>
             </div>

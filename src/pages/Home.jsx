@@ -88,7 +88,7 @@ function Home() {
                                 <Link key={index} to={`/products/${item.id}`}><div className='h-[500px] overflow-hidden relative flex flex-col ' >
                                     <h1 className=' absolute left-3 top-3 px-2 rounded-full bg-[#1A2508] text-white text-sm'>NEW</h1>
                                     <img src={item.images[0]} alt="" className='h-[400px] w-full object-cover' />
-                                    <div className='w-full bg-white h-full px-6 text-lg py-5'>
+                                    <div className='w-full bg-white h-full px-3 text-lg py-5'>
                                         <h1>{item.name}</h1>
                                         <div className={`text-base flex gap-3 `}>
                                             <h1 className={`${item.sale > 0 && "line-through"}`}>${item.price}</h1>
@@ -138,7 +138,7 @@ function Home() {
                             return (
                                 <Link key={index} to={`/products/${item.id}`}><div className='h-[500px] overflow-hidden flex flex-col ' >
                                     <img src={item.images[0]} alt="" className='h-[400px] w-full object-cover' />
-                                    <div className='w-full bg-white h-full px-6 text-lg py-5'>
+                                    <div className='w-full bg-white h-full px-3 text-lg py-5'>
                                         <h1>{item.name}</h1>
                                         <h1>${item.price}.00</h1>
                                     </div>

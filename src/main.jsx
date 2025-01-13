@@ -9,6 +9,7 @@ import ViewProduct from './pages/ViewProduct.jsx'
 import { store } from './app/store.js'
 import { Provider } from 'react-redux'
 import Login from './pages/Login.jsx'
+import Profile from './pages/Profile.jsx'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -25,6 +26,10 @@ const routes = createBrowserRouter([
       {
         path: '/products/:id',
         element: <ViewProduct />
+      },
+      {
+        path:'/profile',
+        element:<Profile/>
       },
       {
         path:'/login',

@@ -2,7 +2,7 @@ import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsLoginOpen } from "../features/others/navbarSlice";
-import { User2, UserPlus, UserPlus2 } from "lucide-react";
+import { User2, UserPlus2 } from "lucide-react";
 import { setSelectLog } from "../features/Loging/loginSlice";
 import { addUser, loginUser } from "../features/Loging/loginSlice";
 
@@ -60,6 +60,7 @@ function Login() {
     if(user){
       alert("login Completly")
       localStorage.setItem('user', JSON.stringify(user));
+      dispatch(setIsLoginOpen(!isLoginOpen))
     }else{
       alert("login failed")
     }
