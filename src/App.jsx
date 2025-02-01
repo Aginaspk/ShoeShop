@@ -5,6 +5,7 @@ import Navbar from './Components/Navbar'
 import { useDispatch } from 'react-redux'
 import { setProducts, setStatus, setError } from './features/products/ProductSlice'
 import axios from 'axios'
+import HomeAdmin from './pages/Admin/HomeAdmin'
 
 
 
@@ -36,9 +37,11 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar />
         <Outlet />
-      <Footer />
+      <Footer /> */}
+
+      <HomeAdmin/>
     </>
   )
 }
