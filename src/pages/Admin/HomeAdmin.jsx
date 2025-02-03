@@ -6,14 +6,17 @@ import {
   LucideBell,
   LucideBox,
   Search,
-  ShoppingCart,
   ShoppingCartIcon,
   UserCircle2,
   Users,
 } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import Summary from "../../Components/admin/Summary";
+import ProductsList from "../../Components/admin/ProductsList";
+import Overview from "./Overview";
 
 function HomeAdmin() {
+  const [navSelect,setNavSelect] = useState('Overview')
   return (
     <div className="flex">
       <div className="w-[20%] h-[100vh] border-r border-black/20 px-10">
@@ -31,23 +34,23 @@ function HomeAdmin() {
           <ArrowUpRightFromSquare className="text-black/40" />
         </div>
         <div className="px-1 my-5">
-          <h1 className="flex items-center gap-3 py-5 px-2 rounded-md bg-slate-100">
+          <h1 onClick={()=>setNavSelect('Overview')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Overview' && "bg-slate-100"}`}>
             <BlocksIcon className="text-black/40" />
             Overview
           </h1>
-          <h1 className="flex items-center gap-3 py-5 px-2 rounded-md">
+          <h1 onClick={()=>setNavSelect('Analytics')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Analytics' && "bg-slate-100"}`}>
             <ChartNoAxesCombinedIcon className="text-black/40" />
             Analytics
           </h1>
-          <h1 className="flex items-center gap-3 py-5 px-2 rounded-md">
+          <h1 onClick={()=>setNavSelect('Products')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Products' && "bg-slate-100"}`}>
             <LucideBox className="text-black/40" />
             Products
           </h1>
-          <h1 className="flex items-center gap-3 py-5 px-2 rounded-md">
+          <h1 onClick={()=>setNavSelect('Users')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Users' && "bg-slate-100"}`}>
             <Users className="text-black/40" />
             Users
           </h1>
-          <h1 className="flex items-center gap-3 py-5 px-2 rounded-md">
+          <h1 onClick={()=>setNavSelect('Orders')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Orders' && "bg-slate-100"}`}>
             <ShoppingCartIcon className="text-black/40" />
             Orders
           </h1>
@@ -55,8 +58,8 @@ function HomeAdmin() {
       </div>
 
       <div className="w-[80%] px-5">
-        <div className="w-full h-[100px] border-b-2 border-black/20 flex justify-between items-center">
-          <div className="text-3xl">Overview</div>
+        <div className="w-full h-[100px] border-b-2 bord onClick={()=>setNavSelect('')}er-black/20 flex justify-between items-center">
+          <div className="text-3xl">{navSelect}</div>
           <div className="flex gap-12">
             <div>
               <LucideBell />
@@ -71,17 +74,7 @@ function HomeAdmin() {
           </div>
         </div>
 
-
-
-        <div className="w-full">
-            <div className="grid grid-cols-4 gap-10 mt-5">
-                <div className="h-[180px] border bg-gradient-to-r from-[#4328EB] from-[14%] to-[#F5F4FF] to-[92%]"></div>
-                <div className="h-[180px] border"></div>
-                <div className="h-[180px] border"></div>
-                <div className="h-[180px] border"></div>
-            </div>
-        </div>
-
+        <Overview/>
 
 
 
