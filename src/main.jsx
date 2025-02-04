@@ -12,6 +12,7 @@ import Login from './pages/Login.jsx'
 import Profile from './pages/Profile.jsx'
 import Cart from './pages/Cart.jsx'
 import Wishlist from './pages/Wishlist.jsx'
+import HomeAdmin from './pages/Admin/HomeAdmin.jsx'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -30,23 +31,28 @@ const routes = createBrowserRouter([
         element: <ViewProduct />
       },
       {
-        path:'/profile',
-        element:<Profile/>
+        path: '/profile',
+        element: <Profile />
       },
       {
-        path:'/login',
-        element:<Login/>
+        path: '/login',
+        element: <Login />
       },
       {
-        path:'/cart',
-        element:<Cart/>
+        path: '/cart',
+        element: <Cart />
       },
       {
-        path:'/wishlist',
-        element:<Wishlist/>
+        path: '/wishlist',
+        element: <Wishlist />
       }
 
+
     ]
+  },
+  {
+    path: '/admin',
+    element: <HomeAdmin />
   }
 ])
 

@@ -31,7 +31,8 @@ export const loginUser = createAsyncThunk(
             if (matchedUser) {
                 return {
                     id: matchedUser.id,
-                    email: matchedUser.email
+                    email: matchedUser.email,
+                    role:matchedUser.role
                 };
             } else {
                 return rejectWithValue('Invalid username or password');

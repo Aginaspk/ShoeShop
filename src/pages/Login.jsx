@@ -5,6 +5,7 @@ import { setIsLoginOpen } from "../features/others/navbarSlice";
 import { User2, UserPlus2 } from "lucide-react";
 import { setSelectLog } from "../features/Loging/loginSlice";
 import { addUser, loginUser } from "../features/Loging/loginSlice";
+import { useNavigate } from "react-router-dom";
 
 const userInitialState = {
 
@@ -21,6 +22,7 @@ const loginInitialState = {
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [newUserInput, setNewUserInput] = useState(userInitialState)
   const [loginInput, setIsLoginInput] = useState(loginInitialState)
   const { isLoginOpen } = useSelector(state => state.navbar)
@@ -57,14 +59,22 @@ function Login() {
   }
   const handleLogin = () => {
     dispatch(loginUser(loginInput));
-    if(user){
-      alert("login Completly")
-      localStorage.setItem('user', JSON.stringify(user));
-      dispatch(setIsLoginOpen(!isLoginOpen))
-    }else{
+    if (user) {
+      if (user.role === 'user') {
+        alert("login Completly")
+        localStorage.setItem('user', JSON.stringify(user));
+        dispatch(setIsLoginOpen(!isLoginOpen))
+      }else{
+        alert("login Completly")
+        localStorage.setItem('user', JSON.stringify(user));
+        dispatch(setIsLoginOpen(!isLoginOpen))
+        navigate('/admin')
+        
+      }
+    } else {
       alert("login failed")
     }
-    
+
   }
 
   function onCloseModal() {

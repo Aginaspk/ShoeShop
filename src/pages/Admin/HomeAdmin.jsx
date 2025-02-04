@@ -3,6 +3,7 @@ import {
   BlocksIcon,
   ChartNoAxesCombinedIcon,
   EllipsisVertical,
+  LogOut,
   LucideBell,
   LucideBox,
   Search,
@@ -11,12 +12,19 @@ import {
   Users,
 } from "lucide-react";
 import React, { useState } from "react";
-import Summary from "../../Components/admin/Summary";
-import ProductsList from "../../Components/admin/ProductsList";
 import Overview from "./Overview";
+import ProductsView from "./ProductsView";
+import UsersView from "./UsersView";
+import { useNavigate } from "react-router-dom";
 
 function HomeAdmin() {
-  const [navSelect,setNavSelect] = useState('Overview')
+  const navigate = useNavigate()
+  const [navSelect, setNavSelect] = useState('Overview')
+
+  const logoutAdmin = ()=>{
+    localStorage.clear();
+    navigate('/')
+  }
   return (
     <div className="flex">
       <div className="w-[20%] h-[100vh] border-r border-black/20 px-10">
@@ -34,23 +42,23 @@ function HomeAdmin() {
           <ArrowUpRightFromSquare className="text-black/40" />
         </div>
         <div className="px-1 my-5">
-          <h1 onClick={()=>setNavSelect('Overview')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Overview' && "bg-slate-100"}`}>
+          <h1 onClick={() => setNavSelect('Overview')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Overview' && "bg-slate-100"}`}>
             <BlocksIcon className="text-black/40" />
             Overview
           </h1>
-          <h1 onClick={()=>setNavSelect('Analytics')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Analytics' && "bg-slate-100"}`}>
+          <h1 onClick={() => setNavSelect('Analytics')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Analytics' && "bg-slate-100"}`}>
             <ChartNoAxesCombinedIcon className="text-black/40" />
             Analytics
           </h1>
-          <h1 onClick={()=>setNavSelect('Products')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Products' && "bg-slate-100"}`}>
+          <h1 onClick={() => setNavSelect('Products')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Products' && "bg-slate-100"}`}>
             <LucideBox className="text-black/40" />
             Products
           </h1>
-          <h1 onClick={()=>setNavSelect('Users')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Users' && "bg-slate-100"}`}>
+          <h1 onClick={() => setNavSelect('Users')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Users' && "bg-slate-100"}`}>
             <Users className="text-black/40" />
             Users
           </h1>
-          <h1 onClick={()=>setNavSelect('Orders')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Orders' && "bg-slate-100"}`}>
+          <h1 onClick={() => setNavSelect('Orders')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Orders' && "bg-slate-100"}`}>
             <ShoppingCartIcon className="text-black/40" />
             Orders
           </h1>
@@ -69,12 +77,29 @@ function HomeAdmin() {
               Aginas pk
             </div>
             <div>
-              <EllipsisVertical />
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} className="cursor-pointer">
+                  <EllipsisVertical />
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-auto p-2 shadow"
+                >
+                  <li onClick={logoutAdmin}>
+                    <a className="text-red-500">
+                      <LogOut/>
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
 
-        <Overview/>
+
+
+        {navSelect === 'Overview' ? <Overview /> : navSelect === 'Users' ? <UsersView /> : <ProductsView />}
 
 
 

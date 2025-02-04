@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Heart, LucideShoppingBag, MenuIcon, Search, UserCircle2, X } from 'lucide-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setFilterShoe } from '../features/products/ProductSlice'
-import { setSearchInput,setIsLoginOpen } from '../features/others/navbarSlice'
+import { setSearchInput, setIsLoginOpen } from '../features/others/navbarSlice'
 import Login from '../pages/Login'
 
 
@@ -19,7 +19,7 @@ function Navbar() {
 
   const { searchInput } = useSelector(state => state.navbar)
   const { products, status } = useSelector(state => state.products)
-  const {isLoginOpen} = useSelector((state)=>state.navbar)
+  const { isLoginOpen } = useSelector((state) => state.navbar)
 
   const openSideNav = () => {
     setIsSidebarOpen(!isSidebarOpen)
@@ -38,15 +38,21 @@ function Navbar() {
     product.name.toLowerCase().includes(searchInput.trim().toLowerCase())
 
   );
-  const navTo = ()=>{
-    if(user){
-      navigate('/profile')
-    }else{
+  const navTo = () => {
+    if (user) {
+      if (user.role === 'admin') {
+        navigate('/admin')
+
+      } else {
+        navigate('/profile')
+
+      }
+    } else {
       dispatch(setIsLoginOpen(!isLoginOpen))
     }
-    
+
   }
-  
+
 
 
 
@@ -59,7 +65,7 @@ function Navbar() {
   return (
     <div className={`overflow-x-hidden w-full fixed z-20 top-0 bg-white`}>
 
-      <Login/>
+      <Login />
 
 
       {/* sidebar */}
@@ -98,7 +104,7 @@ function Navbar() {
             <h1 className='text-[13px] leading-[1.6em] font-normal tracking-wider text-white'>Free Shipping for orders over $50</h1>
           </div>
           <div className='w-full flex justify-between xl:block '>
-          <Link to={'/'}><h1 className='logos text-[50px] line-through xl:text-center xl:px-0 pl-2'>as</h1></Link>
+            <Link to={'/'}><h1 className='logos text-[50px] line-through xl:text-center xl:px-0 pl-2'>as</h1></Link>
             <h1 className='xl:hidden lg:hidden block' onClick={openSideNav}><MenuIcon size={40} /></h1>
           </div>
 
@@ -118,7 +124,7 @@ function Navbar() {
                   id=""
                   ref={ref}
                   spellCheck='false' />
-                <div className={` fixed max-h-[300px] overflow-y-scroll  w-auto ${filteredProducts.length <= 0 ?"border-[1px] border-black/15":"border-0"} `}>
+                <div className={` fixed max-h-[300px] overflow-y-scroll  w-auto ${filteredProducts.length <= 0 ? "border-[1px] border-black/15" : "border-0"} `}>
                   {filteredProducts.length <= 0 && <div className='h-[75px] w-[150px] xl:w-[250px] px-5 bg-white flex justify-center items-center'>No Item Found..</div>}
                   {searchInput.trim() !== '' && filteredProducts.length > 0 && filteredProducts.map((item, index) => {
                     return (
@@ -155,7 +161,7 @@ function Navbar() {
         </div>
       </div>
 
-      
+
 
 
 

@@ -5,7 +5,7 @@
       "name": "Aginas Pk",
       "email": "batman@gmail.com",
       "password": "12345678",
-      "role": "user"
+      "role": "admin"
     },
     {
       "id": "2",

@@ -6,7 +6,7 @@ function Overview() {
   return (
     <>
     <Summary/>
-    <ProductsList/>
+    <ProductsList features={false}/>
     </>
   )
 }
