@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Heart, LucideShoppingBag, MenuIcon, Search, UserCircle2, X } from 'lucide-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setFilterShoe } from '../features/products/ProductSlice'
 import { setSearchInput, setIsLoginOpen } from '../features/others/navbarSlice'
 import Login from '../pages/Login'
+import { listProducts } from '../features/productSlice'
 
 
 
@@ -17,9 +18,16 @@ function Navbar() {
 
   const user = JSON.parse(localStorage.getItem('user'))
 
+  const {products} = useSelector(state=>state.pro)
+
+  useEffect(()=>{
+    dispatch(listProducts())
+  },[dispatch])
+  
+
   const { searchInput } = useSelector(state => state.navbar)
-  const { products, status } = useSelector(state => state.products)
   const { isLoginOpen } = useSelector((state) => state.navbar)
+
 
   const openSideNav = () => {
     setIsSidebarOpen(!isSidebarOpen)
@@ -31,10 +39,9 @@ function Navbar() {
 
   const getSearchInput = (e) => {
     dispatch(setSearchInput(e.target.value))
-    console.log(searchInput);
 
   }
-  const filteredProducts = products.filter(product =>
+  const filteredProducts = (products?.data || []).filter(product =>
     product.name.toLowerCase().includes(searchInput.trim().toLowerCase())
 
   );
@@ -60,8 +67,6 @@ function Navbar() {
     const footer = document.getElementById('footer');
     footer?.scrollIntoView({ behavior: 'smooth' });
   };
-  if (status === 'loading') { return <div>Loading...</div> }
-  if (status === 'failed') { return <div>{error}</div> }
   return (
     <div className={`overflow-x-hidden w-full fixed z-20 top-0 bg-white`}>
 
@@ -147,7 +152,7 @@ function Navbar() {
             <div className='xl:flex gap-10 hidden '>
               <Link to={'/products'}><h1 onClick={() => navToProduct('Men')}>Men</h1></Link>
               <Link to={'/products'}><h1 onClick={() => navToProduct('Women')}>Women</h1></Link>
-              <Link to={'/products'}><h1 onClick={() => navToProduct('Sale')}>Sale</h1></Link>
+              <Link to={'/products'}><h1 onClick={() => navToProduct('sale')}>Sale</h1></Link>
               <h1 onClick={scrollToFooter} className=' cursor-pointer'>Contact</h1>
               <h1 onClick={scrollToFooter} className=' cursor-pointer'>About</h1>
 

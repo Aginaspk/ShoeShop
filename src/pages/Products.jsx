@@ -3,27 +3,13 @@ import ProductCard from '../Components/ProductCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faX, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilterShoe } from '../features/products/ProductSlice';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { getProductsByCategory } from '../features/productSlice';
+import Loader from '../Components/Loader';
 function Products() {
     const dispatch = useDispatch()
-    const { products } = useSelector(state => state.products)
 
-
-    const filterProduct = useSelector(state => state.products.filterProduct);
-    const displayProducts = products.filter(product => {
-        if (filterProduct === 'all') return product;
-        else if (filterProduct === 'Women') {
-            return product.gender === "Women";
-        }
-        else if (filterProduct === "Men") {
-            return product.gender === 'Men'
-        }
-        else if (filterProduct === "Sale") {
-            return product.sale > 0;
-        }
-    })
 
 
     const [type, setType] = useState(true);
@@ -31,11 +17,15 @@ function Products() {
     const [selectFilter, setSelectFilter] = useState(false);
     const [filter, setFilter] = useState('Recommended')
     const [filterNavOpen, setFilterNavOpen] = useState(false)
+    const [filterProduct,setFilterProduct] = useState('all')
+
+    const {productsByCategory,categoryLoading,categoryError} = useSelector(state=>state.pro);
 
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        dispatch(getProductsByCategory(filterProduct));
+    }, [filterProduct,dispatch]);
     useEffect(() => {
         AOS.init({ duration: 1000 });
         AOS.refresh();
@@ -44,14 +34,14 @@ function Products() {
 
 
     const browseShoes = (value) => {
-        dispatch(setFilterShoe(value));
+        setFilterProduct(value)
     }
 
 
-    if (status === 'loading') return <div>Loading...</div>;
-    if (status === 'failed') return <div>Error: {error}</div>;
+    if (categoryLoading) return <Loader/>;
+    if (categoryError) return <div>Error...</div>;
     return (
-        <div data-aos="fade-up" className='p-2 z-0 px-2 xl:mt-[140px] mt-[98px] xl:mb-[500px]  '>
+        <div className='p-2 z-0 px-2 xl:mt-[140px] mt-[98px] xl:mb-[500px]  '>
 
                 <div className={` fixed top-[-98px] left-0   w-[100%] h-screen bg-white z-50 xl:hidden sm-xl:hidden block transform transition-transform duration-300  ${!filterNavOpen ? "translate-x-full" : "translate-x-0"}`}>
                     <div className='flex justify-between  border-b-2 border-black/30 items-center px-2 py-3'>
@@ -135,7 +125,7 @@ function Products() {
                             <li className={`py-1 cursor-pointer pb-[1px] ${filterProduct === `all` && "underline"}`} onClick={() => browseShoes(`all`)}>All Products</li>
                             <li className={`py-1 cursor-pointer pb-[1px] ${filterProduct === `Men` && "underline"}`} onClick={() => browseShoes(`Men`)}>Men</li>
                             <li className={`py-1 cursor-pointer pb-[1px] ${filterProduct === `Women` && "underline"}`} onClick={() => browseShoes(`Women`)}>Women</li>
-                            <li className={`py-1 cursor-pointer pb-[1px] ${filterProduct === `Sale` && "underline"}`} onClick={() => browseShoes(`Sale`)}>Sale</li>
+                            <li className={`py-1 cursor-pointer pb-[1px] ${filterProduct === `sale` && "underline"}`} onClick={() => browseShoes(`sale`)}>Sale</li>
                         </div>
 
                         <h1 className='text-xl py-3 border-b-[1px] border-black/50 w-[75%]'>Filtered By</h1>
@@ -199,7 +189,7 @@ function Products() {
                         </div>
                         <div className='w-full grid xl:grid-cols-3 grid-cols-1 xl:border-0 border-y-2 mr-[1px] '>
 
-                            {displayProducts.map((item, index) => {
+                            {productsByCategory?.data?.map((item, index) => {
                                 return (
                                     <ProductCard key={index} item={item} />
                                 )
