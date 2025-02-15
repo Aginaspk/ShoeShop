@@ -4,21 +4,23 @@ import { faAngleDown, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Heart from "react-animated-heart";
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDisplayImage } from '../features/products/viewProductSlice';
 import Loader from '../Components/Loader';
 import 'aos/dist/aos.css'
 import { getProductById } from '../features/productSlice';
+import api from '../../api/api';
 
 function ViewProduct() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  // Grab product details from your product slice
+
   const { productById, loadingById, errorById } = useSelector(state => state.pro);
-  // Grab the displayImage from your viewProduct slice (adjust if your slice name differs)
-  const { displayImage } = useSelector(state => state.viewProduct);
-  
-  console.log(productById);
+  useEffect(() => {
+    dispatch(getProductById(id));
+
+  }, [dispatch, id])
+
+
 
   const [isSizeBarOpen, setIsSizeBarOpen] = useState(false);
   const [size, setSize] = useState('Select');
@@ -26,22 +28,37 @@ function ViewProduct() {
   const [isInformatiosBarOpen, setIsInformatiosBarOpen] = useState(true);
   const [whichInfo, setWhichInfo] = useState('PRODUCT INFO');
   const [isClick, setClick] = useState(false);
+  const [indexOfImage, setIndexOfImage] = useState(0)
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log(id);
-    dispatch(getProductById(id));
-  }, [dispatch, id]);
+  }, []);
 
-  const changeImage = (value) => {
-    dispatch(setDisplayImage(value));
-  };
-
-  if (loadingById) { 
-    return <Loader /> 
+  const addToCart = async () =>{
+    if(size === 'Select'){
+      alert("select a size");
+      return;
+    }
+    try{
+      const product = await api.post('/user/cart',{productId:id,size,quantity});
+      alert('added to cart')
+    }catch(error){
+      alert("Item not added to cart")
+    }
   }
-  if (errorById) { 
-    return <div>Error...</div> 
+
+
+  const changeImage = (val) => {
+    setIndexOfImage(val)
+  }
+
+
+  if (loadingById) {
+    return <Loader />
+  }
+  if (errorById) {
+    return <div>Error...</div>
   }
 
   return (
@@ -49,38 +66,38 @@ function ViewProduct() {
       <div className='flex xl:w-[866px] justify-between'>
         {/* Thumbnails */}
         <div className='hidden xl:grid grid-cols-1 h-[500px]'>
-          {productById?.images?.map((item, index) => (
-            <div 
-              key={index} 
-              className='w-[113px] h-[113px]' 
+          {productById?.data?.images?.map((item, index) => (
+            <div
+              key={index}
+              className='w-[113px] h-[113px]'
               onClick={() => changeImage(index)}
             >
-              <img 
-                src={item} 
-                alt="" 
-                className={`h-full w-full object-cover ${displayImage === index && "opacity-30"}`} 
+              <img
+                src={item}
+                alt=""
+                className={`h-full w-full object-cover ${indexOfImage === index && "opacity-30"}`}
               />
             </div>
           ))}
         </div>
         {/* Main image */}
         <div className='xl:w-[728px] xl:h-[680px] w-full h-[400px] overflow-hidden'>
-          <img 
-            src={productById?.images[displayImage]} 
-            alt="" 
-            className='xl:h-full w-full object-cover' 
+          <img
+            src={productById?.data?.images[indexOfImage]}
+            alt=""
+            className='xl:h-full w-full object-cover'
           />
         </div>
       </div>
-      <div data-aos="fade-up" className='xl:w-[437px] w-full xl:ml-[55px] mt-10 xl:mt-0 '>
+      <div className='xl:w-[437px] w-full xl:ml-[55px] mt-10 xl:mt-0 '>
         <div>
-          <h1 className='text-lg my-3'>{productById?.name}</h1>
+          <h1 className='text-lg my-3'>{productById?.data?.name}</h1>
           <div className='flex gap-2'>
-            <h1 className={`text-xl my-3 ${productById?.sale > 0 && "line-through"}`}>
-              ${productById?.price}.00
+            <h1 className={`text-xl my-3 ${productById?.data?.sale > 0 && "line-through"}`}>
+              ${productById?.data?.price}.00
             </h1>
-            <h1 className={`text-xl my-3 ${productById?.sale <= 0 && "hidden"} text-[#CF4616]`}>
-              ${productById?.sale}.00
+            <h1 className={`text-xl my-3 ${productById?.data?.sale <= 0 && "hidden"} text-[#CF4616]`}>
+              ${productById?.data?.sale}.00
             </h1>
           </div>
           <h1 className='text-sm my-3'>
@@ -90,8 +107,8 @@ function ViewProduct() {
         <div className='w-full my-3'>
           <h1 className='mb-1'>Size</h1>
           <div className='relative'>
-            <div 
-              onClick={() => setIsSizeBarOpen(!isSizeBarOpen)} 
+            <div
+              onClick={() => setIsSizeBarOpen(!isSizeBarOpen)}
               className='h-[40px] w-full border-[1px] border-black flex items-center justify-between px-3'
             >
               <p className={`${size === "Select" ? "text-black/30" : "text-black"}`}>
@@ -99,13 +116,13 @@ function ViewProduct() {
               </p>
               <FontAwesomeIcon className='text-black' icon={faAngleDown} />
             </div>
-            <div 
+            <div
               className={`bg-white w-full border-[1px] border-black/20 border-t-0 absolute overflow-hidden ${isSizeBarOpen ? "max-h-[150px]" : "max-h-0"} transition-all duration-300 ease-in-out`}
             >
-              {productById?.sizes?.map((item, index) => (
-                <div 
+              {productById?.data?.sizes?.map((item, index) => (
+                <div
                   key={index}
-                  onClick={() => { setIsSizeBarOpen(!isSizeBarOpen); setSize(item) }} 
+                  onClick={() => { setIsSizeBarOpen(!isSizeBarOpen); setSize(item) }}
                   className='h-[30px] flex items-center pl-3'
                 >
                   {item}
@@ -117,16 +134,16 @@ function ViewProduct() {
         <div className='w-full my-3'>
           <h1 className='mb-1'>Quantity</h1>
           <div className='w-[120px] h-[40px] border-[1px] border-black flex items-center'>
-            <button 
-              onClick={() => setQuantity(quantity - 1)} 
-              disabled={quantity <= 1} 
+            <button
+              onClick={() => setQuantity(quantity - 1)}
+              disabled={quantity <= 1}
               className={`w-1/3 text-center ${quantity > 1 ? "text-black" : "text-black/30"}`}
             >
               <FontAwesomeIcon icon={faMinus} />
             </button>
             <p className='w-1/3 text-center text-sm'>{quantity}</p>
-            <button 
-              onClick={() => setQuantity(quantity + 1)} 
+            <button
+              onClick={() => setQuantity(quantity + 1)}
               className='w-1/3 text-center'
             >
               <FontAwesomeIcon icon={faPlus} />
@@ -135,38 +152,38 @@ function ViewProduct() {
         </div>
 
         <div className='w-full justify-between xl:flex'>
-          <button className='mb-3 xl:mb-0 w-full xl:w-[185px] h-[46px] bg-[#CF4616] flex justify-center items-center text-white'>
+          <button onClick={addToCart} className='mb-3 xl:mb-0 w-full xl:w-[185px] h-[46px] bg-[#CF4616] flex justify-center items-center text-white'>
             Add to Cart
           </button>
           <button className='mb-3 xl:mb-0 w-full xl:w-[185px] h-[46px] bg-[#1A2508] text-white flex justify-center items-center'>
             Buy Now
           </button>
           <div className='xl:block hidden w-full h-[46px] xl:w-[49px] border-[1px] border-black relative'>
-            <Heart 
-              isClick={isClick} 
-              onClick={() => setClick(!isClick)} 
-              styles={{ position: "absolute", top: "-27px", right: "-25px" }} 
+            <Heart
+              isClick={isClick}
+              onClick={() => setClick(!isClick)}
+              styles={{ position: "absolute", top: "-27px", right: "-25px" }}
             />
           </div>
           <div className='xl:hidden mb-3 xl:mb-0 w-full h-[46px] xl:w-[49px] border-[1px] border-black relative'>
-            <Heart 
-              isClick={isClick} 
-              onClick={() => setClick(!isClick)} 
-              styles={{ position: "absolute", top: "-27px", right: "37%" }} 
+            <Heart
+              isClick={isClick}
+              onClick={() => setClick(!isClick)}
+              styles={{ position: "absolute", top: "-27px", right: "37%" }}
             />
           </div>
         </div>
 
         <div className='w-full'>
           <div className='border-b-[1px] border-black/10 py-2'>
-            <div 
-              onClick={() => { setIsInformatiosBarOpen(!isInformatiosBarOpen); setWhichInfo('PRODUCT INFO') }} 
+            <div
+              onClick={() => { setIsInformatiosBarOpen(!isInformatiosBarOpen); setWhichInfo('PRODUCT INFO') }}
               className='h-[40px] w-full flex items-center justify-between pr-3'
             >
               <p className='text-[13px]'>PRODUCT INFO</p>
               <FontAwesomeIcon className='text-black' icon={faAngleDown} />
             </div>
-            <div 
+            <div
               className={`bg-white w-full overflow-hidden ${isInformatiosBarOpen && whichInfo === 'PRODUCT INFO' ? "max-h-[96px]" : "max-h-0"} transition-all duration-300 ease-in-out xl:px-0 px-2`}
             >
               <p className='text-[13px] leading-4'>
@@ -177,14 +194,14 @@ function ViewProduct() {
         </div>
         <div className='w-full'>
           <div className='border-b-[1px] border-black/10 py-2'>
-            <div 
-              onClick={() => { setIsInformatiosBarOpen(!isInformatiosBarOpen); setWhichInfo('RETURN & REFUND POLICY') }} 
+            <div
+              onClick={() => { setIsInformatiosBarOpen(!isInformatiosBarOpen); setWhichInfo('RETURN & REFUND POLICY') }}
               className='h-[40px] w-full flex items-center justify-between pr-3'
             >
               <p className='text-[13px]'>RETURN & REFUND POLICY</p>
               <FontAwesomeIcon className='text-black' icon={faAngleDown} />
             </div>
-            <div 
+            <div
               className={`bg-white w-full overflow-hidden ${isInformatiosBarOpen && whichInfo === 'RETURN & REFUND POLICY' ? "max-h-[96px]" : "max-h-0"} transition-all duration-300 ease-in-out xl:px-0 px-2`}
             >
               <p className='text-[13px] leading-4'>
@@ -195,14 +212,14 @@ function ViewProduct() {
         </div>
         <div className='w-full'>
           <div className='border-b-[1px] border-black/10 py-2'>
-            <div 
-              onClick={() => { setIsInformatiosBarOpen(!isInformatiosBarOpen); setWhichInfo('SHIPPING INFO') }} 
+            <div
+              onClick={() => { setIsInformatiosBarOpen(!isInformatiosBarOpen); setWhichInfo('SHIPPING INFO') }}
               className='h-[40px] w-full flex items-center justify-between pr-3'
             >
               <p className='text-[13px]'>SHIPPING INFO</p>
               <FontAwesomeIcon className='text-black' icon={faAngleDown} />
             </div>
-            <div 
+            <div
               className={`bg-white w-full overflow-hidden ${isInformatiosBarOpen && whichInfo === 'SHIPPING INFO' ? "max-h-[96px]" : "max-h-0"} transition-all duration-300 ease-in-out xl:px-0 px-2`}
             >
               <p className='text-[13px] leading-4'>

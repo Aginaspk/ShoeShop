@@ -6,13 +6,14 @@ import App from './App.jsx'
 import Home from './pages/Home.jsx'
 import Products from './pages/Products.jsx'
 import ViewProduct from './pages/ViewProduct.jsx'
-import { store } from './app/store.js'
+import { persistor, store } from './app/store.js'
 import { Provider } from 'react-redux'
 import Login from './pages/Login.jsx'
 import Profile from './pages/Profile.jsx'
 import Cart from './pages/Cart.jsx'
 import Wishlist from './pages/Wishlist.jsx'
 import HomeAdmin from './pages/Admin/HomeAdmin.jsx'
+import { PersistGate } from 'redux-persist/integration/react'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -59,7 +60,9 @@ const routes = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={routes} />
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={routes} />
+      </PersistGate>
     </Provider>
   </StrictMode>
 )

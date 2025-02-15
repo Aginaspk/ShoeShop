@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setIsLoginOpen } from "../features/others/navbarSlice";
 import { User2, UserPlus2 } from "lucide-react";
 import { setSelectLog } from "../features/Loging/loginSlice";
-import { addUser, loginUser } from "../features/Loging/loginSlice";
+import { addUser } from "../features/Loging/loginSlice";
+import { loginUser } from "../features/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const userInitialState = {
@@ -27,7 +28,6 @@ function Login() {
   const [loginInput, setIsLoginInput] = useState(loginInitialState)
   const { isLoginOpen } = useSelector(state => state.navbar)
   const { selectLog } = useSelector(state => state.log)
-  const { user } = useSelector(state => state.log)
   useEffect(() => {
     dispatch(setSelectLog('login'))
   }, [])
@@ -41,7 +41,6 @@ function Login() {
     })
 
   }
-
   const handleRegister = () => {
     dispatch(addUser(newUserInput));
     alert("registerd Completly")
@@ -54,27 +53,32 @@ function Login() {
       ...loginInput,
       [e.target.name]: e.target.value
     })
-    console.log(loginInput);
 
   }
-  const handleLogin = () => {
-    dispatch(loginUser(loginInput));
-    if (user) {
-      if (user.role === 'user') {
-        alert("login Completly")
-        localStorage.setItem('user', JSON.stringify(user));
-        dispatch(setIsLoginOpen(!isLoginOpen))
-      }else{
-        alert("login Completly")
-        localStorage.setItem('user', JSON.stringify(user));
-        dispatch(setIsLoginOpen(!isLoginOpen))
-        navigate('/admin')
-        
-      }
-    } else {
-      alert("login failed")
-    }
 
+  const validate = (values) => {
+    const errors = {};
+    if (!values.email) {
+      errors.email = "Email is required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.email = "Invalid email address";
+    }
+    if (!values.password) {
+      errors.password = "Password is required";
+    }
+    return errors;
+  };
+
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await dispatch(loginUser(loginInput)).unwrap();
+      alert("Login successful:", user);
+      dispatch(setIsLoginOpen(!isLoginOpen))
+    } catch (error) {
+      alert("Login failed:", error);
+    }
   }
 
   function onCloseModal() {
@@ -134,25 +138,27 @@ function Login() {
                       </div>
 
                       <div class="mx-auto max-w-xs">
-                        <input
-                          name="email"
-                          onChange={getLoginInput}
-                          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                          type="email" placeholder="Email" />
-                        <input
-                          name="password"
-                          onChange={getLoginInput}
-                          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                          type="password" placeholder="Password" />
-                        <button
-                          onClick={handleLogin}
-                          class="mt-5 tracking-wide font-semibold bg-[#CF4616] rounded-sm text-gray-100 w-full py-4  hover:bg-black transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                        <form action="" onSubmit={handleLogin}>
+                          <input
+                            name="email"
+                            onChange={getLoginInput}
+                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                            type="email" placeholder="Email" />
+                          <input
+                            name="password"
+                            onChange={getLoginInput}
+                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                            type="password" placeholder="Password" />
+                          <button
+                            type="submit"
+                            class="mt-5 tracking-wide font-semibold bg-[#CF4616] rounded-sm text-gray-100 w-full py-4  hover:bg-black transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
 
-                          <User2 />
-                          <span class="ml-3">
-                            Log in
-                          </span>
-                        </button>
+                            <User2 />
+                            <span class="ml-3">
+                              Log in
+                            </span>
+                          </button>
+                        </form>
 
 
                         <p className="text-sm underline text-center p-3 text-gray-600 tracking-wide font-medium" onClick={() => dispatch(setSelectLog('sign'))}>Not a User?</p>

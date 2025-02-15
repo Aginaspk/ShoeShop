@@ -16,15 +16,15 @@ function Navbar() {
   const ref = useRef();
   const navigate = useNavigate()
 
-  const user = JSON.parse(localStorage.getItem('user'))
+  
 
   const {products} = useSelector(state=>state.pro)
 
   useEffect(()=>{
     dispatch(listProducts())
   },[dispatch])
-  
 
+  const user = useSelector(state=>state.auth.isAuth)
   const { searchInput } = useSelector(state => state.navbar)
   const { isLoginOpen } = useSelector((state) => state.navbar)
 
@@ -47,13 +47,8 @@ function Navbar() {
   );
   const navTo = () => {
     if (user) {
-      if (user.role === 'admin') {
-        navigate('/admin')
-
-      } else {
         navigate('/profile')
 
-      }
     } else {
       dispatch(setIsLoginOpen(!isLoginOpen))
     }

@@ -1,17 +1,23 @@
 import { LogOutIcon } from 'lucide-react'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { logout } from '../features/Loging/loginSlice'
 import { useNavigate } from 'react-router-dom'
+import { logoutUser } from '../features/authSlice'
 
 function Profile() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
 
-    const logoutUser =()=>{
-        dispatch(logout())
-        navigate('/')
+    const UserLogout = async () => {
+        try {
+            const user = await dispatch(logoutUser()).unwrap();
+            alert("Logout successful:", user);
+            navigate('/')
+        } catch (error) {
+            alert("Login failed:", error);
+        }
+
 
     }
     return (
@@ -25,7 +31,7 @@ function Profile() {
                         <h1>Payment</h1>
                         <h1>Wishlist</h1>
                     </div>
-                    <div className='flex gap-2 text-red-500 pt-10 pb-5 cursor-pointer' onClick={logoutUser}>
+                    <div className='flex gap-2 text-red-500 pt-10 pb-5 cursor-pointer' onClick={UserLogout}>
                         <LogOutIcon />
                         <h1>Logout</h1>
                     </div>
