@@ -44,7 +44,7 @@ function Cart() {
                                     </div>
                                 </div>
                                 <div className='flex gap-14'>
-                                    <div>- 1 +</div>
+                                    <div>- {item?.quantity} +</div>
                                     <div>$ 120.00</div>
                                     <div><Delete /></div>
                                 </div>
