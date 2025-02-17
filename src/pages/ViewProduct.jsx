@@ -8,6 +8,8 @@ import Loader from '../Components/Loader';
 import 'aos/dist/aos.css'
 import { getProductById } from '../features/productSlice';
 import api from '../../api/api';
+import { updateCart } from '../features/cartSlice';
+import { addToWishlist, removeFromWishlist } from '../features/wishlistSlice';
 
 function ViewProduct() {
   const dispatch = useDispatch();
@@ -35,16 +37,34 @@ function ViewProduct() {
     window.scrollTo(0, 0);
   }, []);
 
-  const addToCart = async () =>{
-    if(size === 'Select'){
+  const addToCart = async () => {
+    if (size === 'Select') {
       alert("select a size");
       return;
     }
-    try{
-      const product = await api.post('/user/cart',{productId:id,size,quantity});
+    try {
+      const response = await dispatch(updateCart({ productId: id, size, quantity })).unwrap()
       alert('added to cart')
-    }catch(error){
+    } catch (error) {
       alert("Item not added to cart")
+    }
+  }
+
+  const addWishlist = async () => {
+    try {
+      const response = await dispatch(addToWishlist({ productId: id })).unwrap()
+      alert("added to wishlist")
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  const removeWishlist = async () => {
+    try {
+      const response = await dispatch(removeFromWishlist(productById.data._id)).unwrap()
+      alert("removed from wishlist")
+    } catch (error) {
+      alert(error)
     }
   }
 
@@ -161,7 +181,14 @@ function ViewProduct() {
           <div className='xl:block hidden w-full h-[46px] xl:w-[49px] border-[1px] border-black relative'>
             <Heart
               isClick={isClick}
-              onClick={() => setClick(!isClick)}
+              onClick={() => {
+                setClick(!isClick);
+                if (!isClick) {
+                  addWishlist()
+                } else {
+                  removeWishlist()
+                }
+              }}
               styles={{ position: "absolute", top: "-27px", right: "-25px" }}
             />
           </div>

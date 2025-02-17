@@ -1,7 +1,7 @@
 import { Delete, Lock } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserCart } from '../features/cartSlice';
+import { deleteCartItem, getUserCart } from '../features/cartSlice';
 import Loader from '../Components/Loader';
 
 function Cart() {
@@ -9,21 +9,32 @@ function Cart() {
     const dispatch = useDispatch();
 
 
-
-
     useEffect(() => {
         window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         dispatch(getUserCart())
     }, [dispatch])
 
     const { cart, loading, error } = useSelector(state => state.cart)
+
     console.log(cart)
 
+    const removeCartItem = async (id) => {
+        try {
+            const response = await dispatch(deleteCartItem(id)).unwrap();
+            alert("removed succesfully");
+        } catch (error) {
+            alert(error)
+        }
+    }
+
     if (loading) {
-        return <Loader/>
+        return <Loader />
     }
     if (error) {
-        return <Loader/>
+        return <Loader />
     }
 
     return (
@@ -45,8 +56,8 @@ function Cart() {
                                 </div>
                                 <div className='flex gap-14'>
                                     <div>- {item?.quantity} +</div>
-                                    <div>$ 120.00</div>
-                                    <div><Delete /></div>
+                                    <div>$ {item?.totalPrice}.00</div>
+                                    <div onClick={() => removeCartItem(item._id)} className='cursor-pointer'><Delete /></div>
                                 </div>
                             </div>
                         )
@@ -63,14 +74,14 @@ function Cart() {
                 <div className='w-full flex flex-col gap-2 border-b border-black/15 py-5'>
                     <div className='w-full flex justify-between '>
                         <h1>subtotal</h1>
-                        <h1>$120.00</h1>
+                        <h1>${cart?.totalPrice}.00</h1>
                     </div>
                     <h1 className='text-sm underline'>Estimate Delivery</h1>
                 </div>
                 <div className='w-full flex flex-col gap-5 py-5'>
                     <div className='flex justify-between text-xl'>
                         <h1>Total</h1>
-                        <h1>$120.00</h1>
+                        <h1>${cart?.totalPrice}.00</h1>
                     </div>
                     <button className='bg-[#CF4616] w-full h-10 text-sm text-white'>Checkout</button>
                     <div className='w-full flex text-xs justify-center'><Lock className='h-[14px]' /> Secure Checkout</div>
