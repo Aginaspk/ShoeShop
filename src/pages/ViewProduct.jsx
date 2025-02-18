@@ -7,9 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../Components/Loader';
 import 'aos/dist/aos.css'
 import { getProductById } from '../features/productSlice';
-import api from '../../api/api';
 import { updateCart } from '../features/cartSlice';
-import { addToWishlist, removeFromWishlist } from '../features/wishlistSlice';
+import { addToWishlist, getWishlist, removeFromWishlist } from '../features/wishlistSlice';
 
 function ViewProduct() {
   const dispatch = useDispatch();
@@ -17,10 +16,16 @@ function ViewProduct() {
 
 
   const { productById, loadingById, errorById } = useSelector(state => state.pro);
+  const { wishlist } = useSelector(state => state.wishlist);
+
   useEffect(() => {
     dispatch(getProductById(id));
+    dispatch(getWishlist())
 
   }, [dispatch, id])
+
+
+
 
 
 
@@ -31,6 +36,12 @@ function ViewProduct() {
   const [whichInfo, setWhichInfo] = useState('PRODUCT INFO');
   const [isClick, setClick] = useState(false);
   const [indexOfImage, setIndexOfImage] = useState(0)
+
+
+  useEffect(() => {
+    const isInWishlist = wishlist?.data?.products.some((product) => product.productId._id === id);
+    setClick(isInWishlist);
+  }, [wishlist, id]);
 
 
   useEffect(() => {
@@ -50,10 +61,20 @@ function ViewProduct() {
     }
   }
 
+
+  const handleWishlistToggle = async () => {
+    if (isClick) {
+      await removeWishlist();
+    } else {
+      await addWishlist();
+    }
+    setClick(!isClick);
+  };
+
   const addWishlist = async () => {
     try {
-      const response = await dispatch(addToWishlist({ productId: id })).unwrap()
-      alert("added to wishlist")
+      const response = await dispatch(addToWishlist({ productId: id })).unwrap();
+      return response;
     } catch (error) {
       alert(error)
     }
@@ -62,11 +83,13 @@ function ViewProduct() {
   const removeWishlist = async () => {
     try {
       const response = await dispatch(removeFromWishlist(productById.data._id)).unwrap()
-      alert("removed from wishlist")
+      return response
     } catch (error) {
       alert(error)
     }
   }
+
+
 
 
   const changeImage = (val) => {
@@ -181,21 +204,14 @@ function ViewProduct() {
           <div className='xl:block hidden w-full h-[46px] xl:w-[49px] border-[1px] border-black relative'>
             <Heart
               isClick={isClick}
-              onClick={() => {
-                setClick(!isClick);
-                if (!isClick) {
-                  addWishlist()
-                } else {
-                  removeWishlist()
-                }
-              }}
+              onClick={handleWishlistToggle}
               styles={{ position: "absolute", top: "-27px", right: "-25px" }}
             />
           </div>
           <div className='xl:hidden mb-3 xl:mb-0 w-full h-[46px] xl:w-[49px] border-[1px] border-black relative'>
             <Heart
               isClick={isClick}
-              onClick={() => setClick(!isClick)}
+              onClick={handleWishlistToggle}
               styles={{ position: "absolute", top: "-27px", right: "37%" }}
             />
           </div>

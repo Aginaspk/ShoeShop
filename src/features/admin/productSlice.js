@@ -1,7 +1,6 @@
 import {
   createAsyncThunk,
   createSlice,
-  isRejectedWithValue,
 } from "@reduxjs/toolkit";
 import api from "../../../api/api";
 
@@ -29,7 +28,11 @@ const productSlice = createSlice({
   name: "products",
   initialState: INITIAL_STATE,
   reducers: {},
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase(getAllProducts.pending,(state)=>{
+      
+    })
+  },
 });
 
 

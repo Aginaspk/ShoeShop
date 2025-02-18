@@ -13,6 +13,7 @@ import Profile from './pages/Profile.jsx'
 import Cart from './pages/Cart.jsx'
 import Wishlist from './pages/Wishlist.jsx'
 import HomeAdmin from './pages/Admin/HomeAdmin.jsx'
+import AdminLogin from './pages/Admin/AdminLogin.jsx'
 import { PersistGate } from 'redux-persist/integration/react'
 const routes = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const routes = createBrowserRouter([
 
 
     ]
+  },
+  {
+    path:'/adminLogin',
+    element:<AdminLogin/>
   },
   {
     path: '/admin',

@@ -34,9 +34,9 @@ function Wishlist() {
             <div className='w-[70%] '>
                 <h1 className='text-xl py-5'>My wishlist</h1>
                 <div className='border-t border-black/15'>
-                    {wishlist?.data?.products.map((item) => {
+                    {wishlist?.data?.products.map((item,index) => {
                         return (
-                            <div className='w-full flex justify-between border-b border-black/15 py-5'>
+                            <div key={index} className='w-full flex justify-between border-b border-black/15 py-5'>
                                 <div className='flex gap-5 '>
                                     <div className='w-[100px] h-[89px]'><img src={item?.productId?.images[0]} className='w-full h-full object-cover' alt="" /></div>
                                     <div className=''>

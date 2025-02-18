@@ -47,6 +47,15 @@ export const deleteCartItem = createAsyncThunk("cart/deleteCartItem",async(id,{r
   }
 })
 
+const calculateTotalPrice = (cart) => {
+  let grandTotal = 0;
+  cart.products.forEach((item) => {
+    item.totalPrice = item.productId.price * item.quantity;
+    grandTotal += item.totalPrice;
+  });
+  cart.totalPrice = grandTotal;
+};
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: INITIAL_STATE,
@@ -69,6 +78,7 @@ const cartSlice = createSlice({
       })
       .addCase(deleteCartItem.fulfilled,(state,action)=>{
         state.cart.products = state.cart.products.filter(item=>item._id !== action.payload)
+        calculateTotalPrice(state.cart);
       })
   },
 });

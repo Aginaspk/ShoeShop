@@ -77,7 +77,7 @@ function Login() {
       alert("Login successful:", user);
       dispatch(setIsLoginOpen(!isLoginOpen))
     } catch (error) {
-      alert("Login failed:", error);
+      alert( error);
     }
   }
 

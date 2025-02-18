@@ -24,7 +24,7 @@ function Navbar() {
     dispatch(listProducts())
   },[dispatch])
 
-  const user = useSelector(state=>state.auth.isAuth)
+  const {isAuth,isAdmin} = useSelector(state=>state.auth)
   const { searchInput } = useSelector(state => state.navbar)
   const { isLoginOpen } = useSelector((state) => state.navbar)
 
@@ -46,8 +46,12 @@ function Navbar() {
 
   );
   const navTo = () => {
-    if (user) {
-        navigate('/profile')
+    if (isAuth) {
+        if(isAdmin){
+          navigate('/admin')
+        }else{
+          navigate('/profile')
+        }
 
     } else {
       dispatch(setIsLoginOpen(!isLoginOpen))
@@ -153,7 +157,7 @@ function Navbar() {
 
             </div>
             <div className='flex xl:w-[200px] justify-between xl:px-5 gap-5'>
-              <h1 className='xl:flex cursor-pointer hidden' onClick={navTo}><UserCircle2 /><p>{user ? "" : "Login"}</p></h1>
+              <h1 className='xl:flex cursor-pointer hidden' onClick={navTo}><UserCircle2 /><p>{isAuth ? "" : "Login"}</p></h1>
               <Link to={'/wishlist'}><h1><Heart /></h1></Link>
               <Link to={'/cart'}><h1><LucideShoppingBag /></h1></Link>
             </div>

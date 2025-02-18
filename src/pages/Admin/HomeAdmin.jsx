@@ -16,14 +16,22 @@ import Overview from "./Overview";
 import ProductsView from "./ProductsView";
 import UsersView from "./UsersView";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutAdmin } from "../../features/authSlice";
 
 function HomeAdmin() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [navSelect, setNavSelect] = useState('Overview')
 
-  const logoutAdmin = ()=>{
-    localStorage.clear();
-    navigate('/')
+  const logoutAdminPage = async () => {
+    try {
+      const response = await dispatch(logoutAdmin()).unwrap();
+      alert("logou succesfully")
+      navigate('/')
+    } catch (error) {
+      alert(error)
+    }
   }
   return (
     <div className="flex">
@@ -85,9 +93,9 @@ function HomeAdmin() {
                   tabIndex={0}
                   className="dropdown-content menu bg-base-100 rounded-box z-[1] w-auto p-2 shadow"
                 >
-                  <li onClick={logoutAdmin}>
+                  <li onClick={logoutAdminPage}>
                     <a className="text-red-500">
-                      <LogOut/>
+                      <LogOut />
                       Logout
                     </a>
                   </li>

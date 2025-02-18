@@ -19,12 +19,11 @@ function Cart() {
 
     const { cart, loading, error } = useSelector(state => state.cart)
 
-    console.log(cart)
 
     const removeCartItem = async (id) => {
         try {
             const response = await dispatch(deleteCartItem(id)).unwrap();
-            alert("removed succesfully");
+            return response;
         } catch (error) {
             alert(error)
         }
@@ -45,7 +44,7 @@ function Cart() {
                 <div className='border-t border-black/15'>
                     {cart?.products?.map((item, index) => {
                         return (
-                            <div className='w-full flex justify-between border-b border-black/15 py-5'>
+                            <div key={index} className='w-full flex justify-between border-b border-black/15 py-5'>
                                 <div className='flex gap-5 '>
                                     <div className='w-[100px] h-[89px]'><img src={item?.productId?.images[0]} className='w-full h-full object-cover' alt="" /></div>
                                     <div className=''>

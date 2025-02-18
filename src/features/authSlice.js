@@ -11,6 +11,18 @@ const INITIAL_STATE = {
   error: null,
 };
 
+export const adminLogin = createAsyncThunk(
+  "auth/adminLogin",
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/adminAuth/login", credentials);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Login failed");
+    }
+  }
+);
+
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials, { rejectWithValue }) => {
@@ -26,6 +38,18 @@ export const loginUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      await api.post("/userAuth/logout", {});
+      return true;
+    } catch (error) {
+      return rejectWithValue("Logout failed");
+    }
+  }
+);
+
+export const logoutAdmin = createAsyncThunk(
+  "auth/logoutAdmin",
   async (_, { rejectWithValue }) => {
     try {
       await api.post("/userAuth/logout", {});
@@ -59,14 +83,25 @@ const authSlice = createSlice({
         state.user = null;
         state.isAuth = false;
         state.isAdmin = false;
-      });
+      })
+      .addCase(adminLogin.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.user;
+        state.isAuth = true;
+        state.isAdmin = true;
+      })
+      .addCase(logoutAdmin.fulfilled,(state,action)=>{
+        state.user = null;
+        state.isAuth = false;
+        state.isAdmin= false;
+      })
   },
 });
 
 const presistConfig = {
   key: "auth",
   storage,
-  whitelist: ["isAuth", "user"],
+  whitelist: ["isAuth", "user", "isAdmin"],
 };
 
 export default persistReducer(presistConfig, authSlice.reducer);
