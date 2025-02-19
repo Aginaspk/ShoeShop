@@ -53,4 +53,6 @@ body{
   font-family: "Spinnaker", serif;
 }
 
-
+.add{
+  @apply bg-gray-100  border-transparent focus:border-b-black/15  focus:border-transparent focus:ring-0;
+}

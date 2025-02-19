@@ -15,6 +15,7 @@ import Wishlist from './pages/Wishlist.jsx'
 import HomeAdmin from './pages/Admin/HomeAdmin.jsx'
 import AdminLogin from './pages/Admin/AdminLogin.jsx'
 import { PersistGate } from 'redux-persist/integration/react'
+import AddProduct from './pages/Admin/AddProduct.jsx'
 const routes = createBrowserRouter([
   {
     path: '/',

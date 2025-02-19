@@ -1,7 +1,18 @@
 import { CircleCheckBigIcon, CircleX, EllipsisVertical, Search } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../features/admin/userSlice";
 
 function UsersList() {
+
+  const dispatch = useDispatch()
+
+  const { users, loading, error } = useSelector(state => state.user);
+  console.log(users)
+  useEffect(() => {
+    dispatch(getUsers())
+  }, [])
+
 
   return (
     <div className="w-full">
@@ -29,116 +40,35 @@ function UsersList() {
 
 
 
-          <tr className="border-b border-black/20">
-            <td className="py-[10px] flex gap-2 items-center">
-              <img
-                src="https://iili.io/2efvzRR.jpg"
-                alt=""
-                className="w-10 h-10"
-              />
-              Aginas pk
-            </td>
-            <td>aginaspk6@gmail.com</td>
-            <td className="py-[10px]">Admin</td>
-            <td className="py-[10px]">Dec 21,2024</td>
-            <td className="py-[10px] flex gap-1 text-green-500"><CircleCheckBigIcon />active</td>
-            <td className="py-[10px]">
-            <div className="dropdown dropdown-left">
-                <div tabIndex={0}><EllipsisVertical /></div>
-                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-auto p-2 shadow">
-                  <li><a className="text-red-500"><CircleX />Block</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b border-black/20">
-            <td className="py-[10px] flex gap-2 items-center">
-              <img
-                src="https://iili.io/2efvzRR.jpg"
-                alt=""
-                className="w-10 h-10"
-              />
-              Aginas pk
-            </td>
-            <td>aginaspk6@gmail.com</td>
-            <td className="py-[10px]">User</td>
-            <td className="py-[10px]">Dec 21,2024</td>
-            <td className="py-[10px] flex gap-1 text-green-500"><CircleCheckBigIcon />active</td>
-            <td className="py-[10px]">
-              <div className="dropdown dropdown-left">
-                <div tabIndex={0}><EllipsisVertical /></div>
-                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-auto p-2 shadow">
-                  <li><a className="text-red-500"><CircleX />Block</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b border-black/20">
-            <td className="py-[10px] flex gap-2 items-center">
-              <img
-                src="https://iili.io/2efvzRR.jpg"
-                alt=""
-                className="w-10 h-10"
-              />
-              Aginas pk
-            </td>
-            <td>aginaspk6@gmail.com</td>
-            <td className="py-[10px]">User</td>
-            <td className="py-[10px]">Dec 21,2024</td>
-            <td className="py-[10px] flex gap-1 text-green-500"><CircleCheckBigIcon />active</td>
-            <td className="py-[10px]">
-            <div className="dropdown dropdown-left">
-                <div tabIndex={0}><EllipsisVertical /></div>
-                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-auto p-2 shadow">
-                  <li><a className="text-red-500"><CircleX />Block</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b border-black/20">
-            <td className="py-[10px] flex gap-2 items-center">
-              <img
-                src="https://iili.io/2efvzRR.jpg"
-                alt=""
-                className="w-10 h-10"
-              />
-              Aginas pk
-            </td>
-            <td>aginaspk6@gmail.com</td>
-            <td className="py-[10px]">User</td>
-            <td className="py-[10px]">Dec 21,2024</td>
-            <td className="py-[10px] flex gap-1 text-red-500"><CircleX />blocked</td>
-            <td className="py-[10px]">
-            <div className="dropdown dropdown-left">
-                <div tabIndex={0}><EllipsisVertical /></div>
-                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-auto p-2 shadow">
-                  <li><a className="text-green-500"><CircleCheckBigIcon/>UnBlock</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b border-black/20">
-            <td className="py-[10px] flex gap-2 items-center">
-              <img
-                src="https://iili.io/2efvzRR.jpg"
-                alt=""
-                className="w-10 h-10"
-              />
-              Aginas pk
-            </td>
-            <td>aginaspk6@gmail.com</td>
-            <td className="py-[10px]">User</td>
-            <td className="py-[10px]">Dec 21,2024</td>
-            <td className="py-[10px] flex gap-1 text-green-500"><CircleCheckBigIcon />active</td>
-            <td className="py-[10px]">
-            <div className="dropdown dropdown-left">
-                <div tabIndex={0}><EllipsisVertical /></div>
-                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-auto p-2 shadow">
-                  <li><a className="text-red-500"><CircleX />Block</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
+          {users?.users?.map((item, index) => {
+            return (
+              <tr className="border-b border-black/20">
+                <td className="py-[10px] flex gap-2 items-center">
+                  <img
+                    src="https://iili.io/2efvzRR.jpg"
+                    alt=""
+                    className="w-10 h-10"
+                  />
+                  {item.name}
+                </td>
+                <td>{item.email}</td>
+                <td className="py-[10px]">user</td>
+                <td className="py-[10px]">Dec 21,2024</td>
+                <td className="py-[10px] flex gap-1 text-green-500">{item.isBlocked ? <><CircleX />blocked</> : <><CircleCheckBigIcon />active</>}</td>
+                <td className="py-[10px]">
+                  <div className="dropdown dropdown-left">
+                    <div tabIndex={0}><EllipsisVertical /></div>
+                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-auto p-2 shadow">
+                      <li><a className="text-red-500"><CircleX />Block</a></li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            )
+          })}
+
+
+
         </table>
       </div>
     </div>

@@ -74,7 +74,7 @@ function HomeAdmin() {
       </div>
 
       <div className="w-[80%] px-5">
-        <div className="w-full h-[100px] border-b-2 bord onClick={()=>setNavSelect('')}er-black/20 flex justify-between items-center">
+        <div className="w-full h-[100px] border-b-2 border-black/20 flex justify-between items-center">
           <div className="text-3xl">{navSelect}</div>
           <div className="flex gap-12">
             <div>

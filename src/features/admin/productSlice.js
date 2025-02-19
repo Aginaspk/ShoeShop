@@ -1,7 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../../api/api";
 
 const INITIAL_STATE = {
@@ -9,6 +6,20 @@ const INITIAL_STATE = {
   loading: true,
   error: null,
 };
+
+export const newProduct = createAsyncThunk(
+  "products/newProduct",
+  async (form, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/admin/product/create", form,{timeout: 60000,});
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response ? error.response.data.message : error.message
+      );
+    }
+  }
+);
 
 export const getAllProducts = createAsyncThunk(
   "products/getAllProducts",
@@ -29,11 +40,19 @@ const productSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllProducts.pending,(state)=>{
-      
-    })
+    builder
+      .addCase(getAllProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getAllProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products = action.payload;
+      })
+      .addCase(getAllProducts.rejected, (state, action) => {
+        state.loading = true;
+        state.error = action.payload;
+      });
   },
 });
-
 
 export default productSlice.reducer;
