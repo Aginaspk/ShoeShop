@@ -3,6 +3,7 @@ import api from "../../../api/api";
 
 const INITIAL_STATE = {
   users: {},
+  user:{},
   loading: false,
   error: null,
 };
@@ -12,6 +13,20 @@ export const getUsers = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get("/admin/users");
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response ? error.response.data.message : error.message
+      );
+    }
+  }
+);
+
+export const getUserId = createAsyncThunk(
+  "user/getUserId",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/admin/user/${id}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -51,7 +66,18 @@ const userSlice = createSlice({
       .addCase(getUsers.rejected, (state, action) => {
         state.loading = true;
         state.error = action.payload;
-      });
+      })
+      .addCase(getUserId.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getUserId.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(getUserId.rejected, (state, action) => {
+        state.loading = true;
+        state.error = action.payload;
+      })
   },
 });
 

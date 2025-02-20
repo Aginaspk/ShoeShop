@@ -3,7 +3,7 @@ import { Delete } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../Components/Loader';
 import { getWishlist, removeFromWishlist } from '../features/wishlistSlice';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 function Wishlist() {
     const dispatch = useDispatch()

@@ -12,13 +12,11 @@ import {
   Users,
 } from "lucide-react";
 import React, { useState } from "react";
-import Overview from "./Overview";
-import ProductsView from "./ProductsView";
-import UsersView from "./UsersView";
+
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutAdmin } from "../../features/authSlice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 function HomeAdmin() {
   const dispatch = useDispatch()

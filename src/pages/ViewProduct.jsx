@@ -9,7 +9,8 @@ import 'aos/dist/aos.css'
 import { getProductById } from '../features/productSlice';
 import { updateCart } from '../features/cartSlice';
 import { addToWishlist, getWishlist, removeFromWishlist } from '../features/wishlistSlice';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
+import { setIsLoginOpen } from '../features/others/navbarSlice';
 
 function ViewProduct() {
   const dispatch = useDispatch();
@@ -17,6 +18,9 @@ function ViewProduct() {
 
 
   const { productById, loadingById, errorById } = useSelector(state => state.pro);
+  const {isAuth} = useSelector(state=>state.auth)
+  const { isLoginOpen } = useSelector(state => state.navbar);
+
   const { wishlist } = useSelector(state => state.wishlist);
 
   useEffect(() => {
@@ -50,6 +54,11 @@ function ViewProduct() {
   }, []);
 
   const addToCart = async () => {
+    if(!isAuth){
+      dispatch(setIsLoginOpen(!isLoginOpen))
+      return
+    }
+
     if (size === 'Select') {
       toast.success("select a size");
       return;
@@ -64,6 +73,10 @@ function ViewProduct() {
 
 
   const handleWishlistToggle = async () => {
+    if(!isAuth){
+      dispatch(setIsLoginOpen(!isLoginOpen))
+      return
+    }
     if (isClick) {
       await removeWishlist();
     } else {

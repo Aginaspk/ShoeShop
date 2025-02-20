@@ -2,26 +2,31 @@ import { CircleCheckBigIcon, CircleX, EllipsisVertical, Search } from "lucide-re
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, userBlock } from "../../features/admin/userSlice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function UsersList() {
 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [blk,setBlk] = useState(true)
   const { users, loading, error } = useSelector(state => state.user);
   console.log(users)
   useEffect(() => {
     dispatch(getUsers())
-  }, [dispatch,blk])
+  }, [dispatch])
 
   const blockUser = async(id,isBlocked)=>{
+
     try {
       const res = dispatch(userBlock(id)).unwrap();
-      setBlk(!blk)
-      toast.success(isBlocked ? "unblocked" : "blocked")
+      // toast.success(isBlocked ? "unblocked" : "blocked")
+      window.location.reload()
+
     } catch (error) {
       toast.error(error)
     }
+
   }
 
 
@@ -53,7 +58,7 @@ function UsersList() {
 
           {users?.users?.map((item, index) => {
             return (
-              <tr className="border-b border-black/20">
+              <tr className="border-b border-black/20" onClick={()=>navigate(`user/${item._id}`)}>
                 <td className="py-[10px] flex gap-2 items-center">
                   <img
                     src="https://iili.io/2efvzRR.jpg"

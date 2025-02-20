@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteCartItem, getUserCart } from '../features/cartSlice';
 import Loader from '../Components/Loader';
 import { stripeOrder } from '../features/orderSlice';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 function Cart() {
 
@@ -28,16 +28,16 @@ function Cart() {
             const response = await dispatch(deleteCartItem(id)).unwrap();
             return response;
         } catch (error) {
-            toast.success(error)
+            toast.error(error)
         }
     }
 
-    const orderItems = async()=>{
+    const orderItems = async () => {
         try {
             const res = await dispatch(stripeOrder()).unwrap();
             toast.success("order complete")
         } catch (error) {
-            toast.success(error)
+            toast.error(error)
         }
     }
 
@@ -83,6 +83,10 @@ function Cart() {
                     <h1>Order summary</h1>
                 </div>
                 <div className='w-full flex flex-col gap-2 border-b border-black/15 py-5'>
+                    <div className='w-full flex justify-between '>
+                        <h1>Toatl items</h1>
+                        <h1>{cart?.products?.length}</h1>
+                    </div>
                     <div className='w-full flex justify-between '>
                         <h1>subtotal</h1>
                         <h1>${cart?.totalPrice}.00</h1>

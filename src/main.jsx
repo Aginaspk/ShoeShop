@@ -23,7 +23,8 @@ import Analytics from './pages/Admin/Analytics.jsx'
 import Orders from './pages/Admin/Orders.jsx'
 import OrderSuccess from './pages/OrderSuccess.jsx'
 import ProtectedRoutes from '../util/ProtectedRoutes.jsx'
-import { ToastContainer } from 'react-toastify'
+import { Toaster } from 'react-hot-toast'
+import UserDetail from './pages/Admin/UserDetail.jsx'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -87,7 +88,13 @@ const routes = createBrowserRouter([
           },
           {
             path: 'users',
-            element: <UsersView />
+            element: <UsersView />,
+            children: [
+              {
+                path: 'user/:id',
+                element: <UserDetail />
+              }
+            ]
           },
           {
             path: 'analytics',
@@ -97,6 +104,7 @@ const routes = createBrowserRouter([
             path: 'orders',
             element: <Orders />
           }
+
         ]
       }
     ]
@@ -109,23 +117,7 @@ createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <RouterProvider router={routes} />
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-          toastStyle={{
-            backgroundColor: "black",
-            color: "white",
-            fontWeight: "bold",
-            borderRadius: "8px",
-          }}
+        <Toaster
         />
       </PersistGate>
     </Provider>

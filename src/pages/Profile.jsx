@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logoutUser } from '../features/authSlice'
-import { toast } from 'react-toastify'
+import toast from 'react-hot-toast'
 
 function Profile() {
     const dispatch = useDispatch()

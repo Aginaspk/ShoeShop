@@ -96,7 +96,7 @@ import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { newProduct } from "../../features/admin/productSlice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 function AddProduct({closeTab}) {
   const [formData, setFormData] = useState({

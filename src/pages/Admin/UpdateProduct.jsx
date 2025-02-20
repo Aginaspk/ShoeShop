@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductById, updateProduct } from "../../features/admin/productSlice";
 import Loader from "../../Components/Loader";
+import toast from "react-hot-toast";
 
 function UpdateProduct({ closeTab, productId }) {
   const dispatch = useDispatch();
@@ -79,11 +80,11 @@ function UpdateProduct({ closeTab, productId }) {
 
     try {
       await dispatch(updateProduct({ id: productId, formData: form })).unwrap();
-      alert("Product updated successfully");
+      toast.success("Product updated successfully");
       closeTab();
     } catch (err) {
       console.error(err);
-      alert("Error updating product");
+      toast.error(err);
     }
   };
 
