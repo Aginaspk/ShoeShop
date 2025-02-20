@@ -5,8 +5,9 @@ import { setIsLoginOpen } from "../features/others/navbarSlice";
 import { User2, UserPlus2 } from "lucide-react";
 import { setSelectLog } from "../features/Loging/loginSlice";
 import { addUser } from "../features/Loging/loginSlice";
-import { loginUser } from "../features/authSlice";
+import { loginUser, registerUser } from "../features/authSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const userInitialState = {
 
@@ -41,11 +42,16 @@ function Login() {
     })
 
   }
-  const handleRegister = () => {
-    dispatch(addUser(newUserInput));
-    alert("registerd Completly")
-    setNewUserInput(userInitialState)
-    dispatch(setSelectLog('login'))
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await dispatch(registerUser(newUserInput)).unwrap();
+      toast.success("signup successfully")
+      dispatch(setSelectLog('sign'))
+    } catch (error) {
+      toast.success(error)
+    }
+
   }
 
   const getLoginInput = (e) => {
@@ -74,10 +80,10 @@ function Login() {
     e.preventDefault();
     try {
       const user = await dispatch(loginUser(loginInput)).unwrap();
-      alert("Login successful:", user);
+      toast.success("login successfully")
       dispatch(setIsLoginOpen(!isLoginOpen))
     } catch (error) {
-      alert( error);
+      toast.success(error);
     }
   }
 
@@ -229,54 +235,58 @@ function Login() {
                       </div>
 
                       <div class="mx-auto max-w-xs">
-                        <input
-                          required
-                          value={newUserInput.name}
-                          name="name"
-                          onChange={getNewUserData}
-                          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2"
-                          type="text" placeholder="Username" />
+                        <form action="" onSubmit={handleRegister}>
+                          <input
+                            required
+                            value={newUserInput.name}
+                            name="name"
+                            onChange={getNewUserData}
+                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2"
+                            type="text" placeholder="Username" />
 
-                        <input
-                          required
-                          value={newUserInput.email}
-                          name="email"
-                          onChange={getNewUserData}
-                          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2"
-                          type="email" placeholder="Email" />
-                        <input
-                          required
-                          value={newUserInput.password}
-                          name="password"
-                          onChange={getNewUserData}
-                          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2"
-                          type="password" placeholder="Password" />
-                        <button
-                          onClick={handleRegister}
-                          class="mt-5 tracking-wide font-semibold bg-[#CF4616] rounded-sm text-gray-100 w-full py-4  hover:bg-black transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                          <input
+                            required
+                            value={newUserInput.email}
+                            name="email"
+                            onChange={getNewUserData}
+                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2"
+                            type="email" placeholder="Email" />
+                          <input
+                            required
+                            value={newUserInput.password}
+                            name="password"
+                            onChange={getNewUserData}
+                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2"
+                            type="password" placeholder="Password" />
+                          <button
+                            type="submit"
+                            class="mt-5 tracking-wide font-semibold bg-[#CF4616] rounded-sm text-gray-100 w-full py-4  hover:bg-black transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
 
-                          <UserPlus2 />
-                          <span class="ml-3">
-                            Sign up
-                          </span>
-                        </button>
-
-
-                        <p className="text-sm underline text-center p-3 text-gray-600 tracking-wide font-medium" onClick={() => dispatch(setSelectLog('login'))}>Already User?</p>
+                            <UserPlus2 />
+                            <span class="ml-3">
+                              Sign up
+                            </span>
+                          </button>
 
 
-                        <p class="mt-6 text-xs text-gray-600 text-center">
-                          I agree to abide by templatana's
-                          <a href="#" class="border-b border-gray-500 border-dotted">
-                            Terms of Service
-                          </a>
-                          and its
-                          <a href="#" class="border-b border-gray-500 border-dotted">
-                            Privacy Policy
-                          </a>
-                        </p>
+                          <p className="text-sm underline text-center p-3 text-gray-600 tracking-wide font-medium" onClick={() => dispatch(setSelectLog('login'))}>Already User?</p>
+
+
+                          <p class="mt-6 text-xs text-gray-600 text-center">
+                            I agree to abide by templatana's
+                            <a href="#" class="border-b border-gray-500 border-dotted">
+                              Terms of Service
+                            </a>
+                            and its
+                            <a href="#" class="border-b border-gray-500 border-dotted">
+                              Privacy Policy
+                            </a>
+                          </p>
+                        </form>
                       </div>
+
                     </div>
+
                   </div>
                 </div>
 

@@ -6,20 +6,34 @@ import {
   Search,
   Trash2,
 } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../features/admin/productSlice";
+import { deleteProduct, getAllProducts } from "../../features/admin/productSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-function ProductsList({ features }) {
+function ProductsList({ openUpdate }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [del,setDel] = useState(true)
 
   const { products, loading, error } = useSelector(state => state.adminProduct)
   console.log(products)
   useEffect(() => {
     dispatch(getAllProducts())
-  }, [dispatch]);
+  }, [dispatch,del]);
+
+
+  const productDelete = async(id)=>{
+    try {
+      const response = await dispatch(deleteProduct(id)).unwrap();
+      setDel(!del)
+      toast.success("Deleted")
+    } catch (error) {
+      toast.error(error);
+      
+    }
+  }
 
 
   return (
@@ -53,7 +67,7 @@ function ProductsList({ features }) {
 
           {products?.data?.map((item, index) => {
             return (
-              <tr className="border-b border-black/20">
+              <tr className={`border-b border-black/20 ${item.isDeleted && "bg-red-300"}`}>
                 <td className="py-[10px] flex gap-2 items-center">
                   <img
                     src={item.images[0]}
@@ -75,13 +89,13 @@ function ProductsList({ features }) {
                       tabIndex={0}
                       className="dropdown-content menu bg-base-100 rounded-box z-[1] w-auto p-2 shadow"
                     >
-                      <li>
+                      <li onClick={()=>openUpdate(item._id)}>
                         <a>
                           <PenBoxIcon />
                           Edit
                         </a>
                       </li>
-                      <li>
+                      <li onClick={()=>productDelete(item._id)} className={`${item.isDeleted && "hidden"}`}>
                         <a>
                           <Trash2 />
                           Delete

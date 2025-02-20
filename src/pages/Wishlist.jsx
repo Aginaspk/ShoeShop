@@ -3,6 +3,7 @@ import { Delete } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../Components/Loader';
 import { getWishlist, removeFromWishlist } from '../features/wishlistSlice';
+import { toast } from 'react-toastify';
 
 function Wishlist() {
     const dispatch = useDispatch()
@@ -16,9 +17,9 @@ function Wishlist() {
     const deleteWishlist = async (id) => {
         try {
             const response = await dispatch(removeFromWishlist(id)).unwrap()
-            alert("removed from wishlist")
+            toast.success("removed from wishlist")
         } catch (error) {
-            alert(error)
+            toast.success(error)
         }
     }
 

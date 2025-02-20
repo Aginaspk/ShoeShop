@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CountUp from "./CountUp";
+import { useDispatch, useSelector } from "react-redux";
+import { getStatus } from "../../features/admin/overviewSlice";
+import { getUsers } from "../../features/admin/userSlice";
+import { getAllProducts } from "../../features/admin/productSlice";
+import Loader from "../Loader";
 
 function Summary() {
+
+const dispatch = useDispatch();
+  const {status,loading,error} = useSelector(state=>state.orderStatus);
+  console.log(status);
+  
+
+  useEffect(()=>{
+    dispatch(getStatus());
+  },[])
+
+  if (loading) return <Loader/>
+  if (error) return <Loader/>
+
   return (
     <div className="w-full">
       <div className="grid grid-cols-4 gap-10 mt-5">
@@ -9,7 +27,7 @@ function Summary() {
           <div className="h-1/2 w-full text-white text-5xl flex items-end px-4 pb-1">
             <CountUp
               from={0}
-              to={120}
+              to={status?.data?.noOfUsers}
               separator=","
               direction="up"
               duration={1}
@@ -24,7 +42,7 @@ function Summary() {
           <div className="h-1/2 w-full text-white text-5xl flex items-end px-4 pb-1">
           <CountUp
               from={0}
-              to={115}
+              to={status?.data?.toatalSales}
               separator=","
               direction="up"
               duration={1}
@@ -39,7 +57,7 @@ function Summary() {
           <div className="h-1/2 w-full text-white text-5xl flex items-end px-4 pb-1">
           <CountUp
               from={0}
-              to={10}
+              to={status?.data?.noOfProducts}
               separator=","
               direction="up"
               duration={1}
@@ -54,7 +72,7 @@ function Summary() {
           <div className="h-1/2 w-full text-white text-5xl flex items-end px-4 pb-1">
           <CountUp
               from={0}
-              to={20000}
+              to={status?.data?.totalRevenue}
               separator=","
               direction="up"
               duration={1}

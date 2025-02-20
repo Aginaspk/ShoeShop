@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { setProducts, setStatus, setError } from './features/products/ProductSlice'
 import axios from 'axios'
 import HomeAdmin from './pages/Admin/HomeAdmin'
+import OrderSuccess from './pages/OrderSuccess'
 
 
 
@@ -39,8 +40,8 @@ function App() {
     <>
       <Navbar />
         <Outlet />
+        
       <Footer />
-
       {/* <HomeAdmin/> */}
     </>
   )

@@ -9,6 +9,8 @@ import cartReducer from "../features/cartSlice";
 import wishlistReducer from "../features/wishlistSlice";
 import adminProductReducer from '../features/admin/productSlice';
 import userReducer from '../features/admin/userSlice'
+import adminOrderReducer from '../features/admin/adminOrderSlice'
+import statusReducer from '../features/admin/overviewSlice'
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +23,8 @@ export const store = configureStore({
     wishlist: wishlistReducer,
     adminProduct:adminProductReducer,
     user:userReducer,
+    adminOrders:adminOrderReducer,
+    orderStatus:statusReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

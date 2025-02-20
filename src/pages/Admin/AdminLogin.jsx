@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { adminLogin } from "../../features/authSlice"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 function AdminLogin() {
     const dispatch = useDispatch();
@@ -26,10 +27,10 @@ function AdminLogin() {
             const response = await dispatch(adminLogin(admin)).unwrap();
             console.log(admin);
             
-            navigate('/admin')
-            alert("login successfully")
+            navigate('/admin',{ replace: true })
+            toast.success("login successfully")
         } catch (error) {
-            alert("login failed", error)
+            toast.success("login failed", error)
         }
     }
     return (

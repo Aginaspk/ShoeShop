@@ -96,6 +96,7 @@ import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { newProduct } from "../../features/admin/productSlice";
+import { toast } from "react-toastify";
 
 function AddProduct({closeTab}) {
   const [formData, setFormData] = useState({
@@ -114,10 +115,9 @@ function AddProduct({closeTab}) {
   const [images, setImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
 
-  // Handle file drop (only for the last div)
   const onDrop = useCallback(
     (acceptedFiles) => {
-      if (images.length + acceptedFiles.length > 4) return; // Limit to 4 images
+      if (images.length + acceptedFiles.length > 4) return; 
       setImages([...images, ...acceptedFiles]);
       setPreviewImages([...previewImages, ...acceptedFiles.map((file) => URL.createObjectURL(file))]);
     },
@@ -147,11 +147,11 @@ function AddProduct({closeTab}) {
 
     try {
       const response = await dispatch(newProduct(form)).unwrap();
-      alert("Product created succesfully");
+      toast.success("Product created succesfully");
       closeTab();
     } catch (err) {
       console.error(err);
-      alert("Error creating product");
+      toast.success("Error creating product");
     }
   };
 
@@ -242,7 +242,7 @@ function AddProduct({closeTab}) {
           </div>
         </div>
 
-        <button onClick={handleSubmit} className="w-full flex justify-center h-[50px] mt-5 bg-gray-100 text-black p-3 rounded-lg mt-3">
+        <button onClick={handleSubmit} className="w-full flex justify-center h-[50px] mt-5 bg-gray-100 text-black p-3 rounded-lg">
           <Plus/>Add New Product
         </button>
       </div>

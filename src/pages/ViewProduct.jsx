@@ -9,6 +9,7 @@ import 'aos/dist/aos.css'
 import { getProductById } from '../features/productSlice';
 import { updateCart } from '../features/cartSlice';
 import { addToWishlist, getWishlist, removeFromWishlist } from '../features/wishlistSlice';
+import { toast } from 'react-toastify';
 
 function ViewProduct() {
   const dispatch = useDispatch();
@@ -50,14 +51,14 @@ function ViewProduct() {
 
   const addToCart = async () => {
     if (size === 'Select') {
-      alert("select a size");
+      toast.success("select a size");
       return;
     }
     try {
       const response = await dispatch(updateCart({ productId: id, size, quantity })).unwrap()
-      alert('added to cart')
+      toast.success('added to cart')
     } catch (error) {
-      alert("Item not added to cart")
+      toast.success("Item not added to cart")
     }
   }
 
@@ -76,7 +77,7 @@ function ViewProduct() {
       const response = await dispatch(addToWishlist({ productId: id })).unwrap();
       return response;
     } catch (error) {
-      alert(error)
+      toast.success(error)
     }
   }
 
@@ -85,7 +86,7 @@ function ViewProduct() {
       const response = await dispatch(removeFromWishlist(productById.data._id)).unwrap()
       return response
     } catch (error) {
-      alert(error)
+      toast.success(error)
     }
   }
 

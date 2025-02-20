@@ -16,6 +16,14 @@ import HomeAdmin from './pages/Admin/HomeAdmin.jsx'
 import AdminLogin from './pages/Admin/AdminLogin.jsx'
 import { PersistGate } from 'redux-persist/integration/react'
 import AddProduct from './pages/Admin/AddProduct.jsx'
+import Overview from './pages/Admin/Overview.jsx'
+import ProductsView from './pages/Admin/ProductsView.jsx'
+import UsersView from './pages/Admin/UsersView.jsx'
+import Analytics from './pages/Admin/Analytics.jsx'
+import Orders from './pages/Admin/Orders.jsx'
+import OrderSuccess from './pages/OrderSuccess.jsx'
+import ProtectedRoutes from '../util/ProtectedRoutes.jsx'
+import { ToastContainer } from 'react-toastify'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -48,19 +56,52 @@ const routes = createBrowserRouter([
       {
         path: '/wishlist',
         element: <Wishlist />
-      }
+      },
+
 
 
     ]
   },
   {
-    path:'/adminLogin',
-    element:<AdminLogin/>
+    path: "/success/:sessionId",
+    element: <OrderSuccess />
   },
   {
-    path: '/admin',
-    element: <HomeAdmin />
-  }
+    path: '/adminLogin',
+    element: <AdminLogin />
+  },
+  {
+    element: <ProtectedRoutes />,
+    children: [
+      {
+        path: '/admin',
+        element: <HomeAdmin />,
+        children: [
+          {
+            index: true,
+            element: <Overview />,
+          },
+          {
+            path: 'products',
+            element: <ProductsView />
+          },
+          {
+            path: 'users',
+            element: <UsersView />
+          },
+          {
+            path: 'analytics',
+            element: <Analytics />
+          },
+          {
+            path: 'orders',
+            element: <Orders />
+          }
+        ]
+      }
+    ]
+  },
+
 ])
 
 createRoot(document.getElementById('root')).render(
@@ -68,6 +109,24 @@ createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <RouterProvider router={routes} />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          toastStyle={{
+            backgroundColor: "black",
+            color: "white",
+            fontWeight: "bold",
+            borderRadius: "8px",
+          }}
+        />
       </PersistGate>
     </Provider>
   </StrictMode>

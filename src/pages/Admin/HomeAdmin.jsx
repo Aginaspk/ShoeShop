@@ -15,9 +15,10 @@ import React, { useState } from "react";
 import Overview from "./Overview";
 import ProductsView from "./ProductsView";
 import UsersView from "./UsersView";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutAdmin } from "../../features/authSlice";
+import { toast } from "react-toastify";
 
 function HomeAdmin() {
   const dispatch = useDispatch()
@@ -27,10 +28,10 @@ function HomeAdmin() {
   const logoutAdminPage = async () => {
     try {
       const response = await dispatch(logoutAdmin()).unwrap();
-      alert("logou succesfully")
+      toast.success("logou succesfully")
       navigate('/')
     } catch (error) {
-      alert(error)
+      toast.success(error)
     }
   }
   return (
@@ -50,23 +51,23 @@ function HomeAdmin() {
           <ArrowUpRightFromSquare className="text-black/40" />
         </div>
         <div className="px-1 my-5">
-          <h1 onClick={() => setNavSelect('Overview')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Overview' && "bg-slate-100"}`}>
+          <h1 onClick={() => { setNavSelect('Overview'); navigate('/admin'); }} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Overview' && "bg-slate-100"}`}>
             <BlocksIcon className="text-black/40" />
             Overview
           </h1>
-          <h1 onClick={() => setNavSelect('Analytics')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Analytics' && "bg-slate-100"}`}>
+          <h1 onClick={() => { setNavSelect('Analytics'); navigate('analytics'); }} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Analytics' && "bg-slate-100"}`}>
             <ChartNoAxesCombinedIcon className="text-black/40" />
             Analytics
           </h1>
-          <h1 onClick={() => setNavSelect('Products')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Products' && "bg-slate-100"}`}>
+          <h1 onClick={() => { setNavSelect('Products'); navigate('products'); }} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Products' && "bg-slate-100"}`}>
             <LucideBox className="text-black/40" />
             Products
           </h1>
-          <h1 onClick={() => setNavSelect('Users')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Users' && "bg-slate-100"}`}>
+          <h1 onClick={() => { setNavSelect('Users'); navigate('users'); }} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Users' && "bg-slate-100"}`}>
             <Users className="text-black/40" />
             Users
           </h1>
-          <h1 onClick={() => setNavSelect('Orders')} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Orders' && "bg-slate-100"}`}>
+          <h1 onClick={() => { setNavSelect('Orders'); navigate('orders'); }} className={`flex items-center gap-3 py-5 px-2 rounded-md cursor-pointer ${navSelect === 'Orders' && "bg-slate-100"}`}>
             <ShoppingCartIcon className="text-black/40" />
             Orders
           </h1>
@@ -105,9 +106,7 @@ function HomeAdmin() {
           </div>
         </div>
 
-
-
-        {navSelect === 'Overview' ? <Overview /> : navSelect === 'Users' ? <UsersView /> : <ProductsView />}
+        <Outlet />
 
 
 

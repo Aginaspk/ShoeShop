@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteCartItem, getUserCart } from '../features/cartSlice';
 import Loader from '../Components/Loader';
+import { stripeOrder } from '../features/orderSlice';
+import { toast } from 'react-toastify';
 
 function Cart() {
 
@@ -18,6 +20,7 @@ function Cart() {
     }, [dispatch])
 
     const { cart, loading, error } = useSelector(state => state.cart)
+    console.log(cart)
 
 
     const removeCartItem = async (id) => {
@@ -25,7 +28,16 @@ function Cart() {
             const response = await dispatch(deleteCartItem(id)).unwrap();
             return response;
         } catch (error) {
-            alert(error)
+            toast.success(error)
+        }
+    }
+
+    const orderItems = async()=>{
+        try {
+            const res = await dispatch(stripeOrder()).unwrap();
+            toast.success("order complete")
+        } catch (error) {
+            toast.success(error)
         }
     }
 
@@ -82,7 +94,7 @@ function Cart() {
                         <h1>Total</h1>
                         <h1>${cart?.totalPrice}.00</h1>
                     </div>
-                    <button className='bg-[#CF4616] w-full h-10 text-sm text-white'>Checkout</button>
+                    <button className='bg-[#CF4616] w-full h-10 text-sm text-white' onClick={orderItems}>Checkout</button>
                     <div className='w-full flex text-xs justify-center'><Lock className='h-[14px]' /> Secure Checkout</div>
                 </div>
             </div>

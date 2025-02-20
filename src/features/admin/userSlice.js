@@ -21,6 +21,20 @@ export const getUsers = createAsyncThunk(
   }
 );
 
+export const userBlock = createAsyncThunk(
+  "user/userBlock",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.patch(`/admin/user/block/${id}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response ? error.response.data.message : error.message
+      );
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: INITIAL_STATE,
@@ -40,6 +54,5 @@ const userSlice = createSlice({
       });
   },
 });
-
 
 export default userSlice.reducer;

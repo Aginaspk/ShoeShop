@@ -11,6 +11,20 @@ const INITIAL_STATE = {
   error: null,
 };
 
+export const registerUser = createAsyncThunk(
+  "auth/registerUser",
+  async (user, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/userAuth/signup", user);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "register failed"
+      );
+    }
+  }
+);
+
 export const adminLogin = createAsyncThunk(
   "auth/adminLogin",
   async (credentials, { rejectWithValue }) => {
@@ -90,11 +104,11 @@ const authSlice = createSlice({
         state.isAuth = true;
         state.isAdmin = true;
       })
-      .addCase(logoutAdmin.fulfilled,(state,action)=>{
+      .addCase(logoutAdmin.fulfilled, (state, action) => {
         state.user = null;
         state.isAuth = false;
-        state.isAdmin= false;
-      })
+        state.isAdmin = false;
+      });
   },
 });
 

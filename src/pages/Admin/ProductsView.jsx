@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import ProductsList from "../../Components/admin/ProductsList";
 import { Box, Plus, Search, X } from "lucide-react";
 import AddProduct from "./AddProduct";
+import UpdateProduct from "./UpdateProduct";
+import { useNavigate } from "react-router-dom";
 
 function ProductsView() {
-
-  const [features, setFetures] = useState(true)
+  const navigate = useNavigate();
+  const [updateId, setUpdateId] = useState(null)
   const [productUpdate, setProductUpdate] = useState("products")
-  const closeTab = ()=>{
+  const closeTab = () => {
     setProductUpdate("products")
+  }
+
+  const openUpdate = (id) => {
+    setProductUpdate("updateProduct")
+    setUpdateId(id)
   }
   return (
     <>
@@ -26,13 +33,20 @@ function ProductsView() {
           </div>
         </div>
       </div>
-        <ProductsList /></>) :
+        <ProductsList openUpdate={openUpdate} /></>) : productUpdate === "addProduct" ?
         <>
           <div className='flex justify-between px-5 pt-3 pb-1'>
-            <div className="flex text-lg"><Box/>Add product</div>
-            <div className="text-lg cursor-pointer" onClick={()=>setProductUpdate("products")}><X /></div>
+            <div className="flex text-lg"><Box />Add product</div>
+            <div className="text-lg cursor-pointer" onClick={() => setProductUpdate("products")}><X /></div>
           </div>
-          <AddProduct closeTab={closeTab}/>
+          <AddProduct closeTab={closeTab} />
+        </> :
+        <>
+          <div className='flex justify-between px-5 pt-3 pb-1'>
+            <div className="flex text-lg"><Box />Update product</div>
+            <div className="text-lg cursor-pointer" onClick={() => setProductUpdate("products")}><X /></div>
+          </div>
+          <UpdateProduct closeTab={closeTab} productId={updateId} />
         </>}
     </>
   );

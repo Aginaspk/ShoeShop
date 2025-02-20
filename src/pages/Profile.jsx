@@ -3,6 +3,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logoutUser } from '../features/authSlice'
+import { toast } from 'react-toastify'
 
 function Profile() {
     const dispatch = useDispatch()
@@ -12,10 +13,10 @@ function Profile() {
     const UserLogout = async () => {
         try {
             const user = await dispatch(logoutUser()).unwrap();
-            alert("Logout successful:", user);
+            toast.success("Logout successful:", user);
             navigate('/')
         } catch (error) {
-            alert("Login failed:", error);
+            toast.success("Login failed:", error);
         }
 
 
